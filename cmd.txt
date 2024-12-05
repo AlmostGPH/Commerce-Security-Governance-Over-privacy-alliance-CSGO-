@@ -60,3 +60,31 @@ python main.py --ray-address 192.168.141.11:20000
 /home/lwzheng/workspace/sf/DataGen/model.png
 
 /home/lwzheng/workspace/sf/DataGen/model.png
+
+
+
+# debug 模式
+
+python main.py --debug    
+
+
+
+/home/GPH/Documents/Commerce-Security-Governance-Over-privacy-alliance-CSGO-/DataGen/leveled_orders_JD.csv
+
+/home/GPH/Documents/Commerce-Security-Governance-Over-privacy-alliance-CSGO-/DataGen/leveled_orders_TB.csv
+
+/home/GPH/Documents/Commerce-Security-Governance-Over-privacy-alliance-CSGO-/DataGen/leveled_Credit_score.csv
+
+
+/home/GPH/Documents/Commerce-Security-Governance-Over-privacy-alliance-CSGO-/DataGen/count_orders_JD.csv
+
+/home/GPH/Documents/Commerce-Security-Governance-Over-privacy-alliance-CSGO-/DataGen/count_orders_TB.csv
+
+/home/GPH/Documents/Commerce-Security-Governance-Over-privacy-alliance-CSGO-/DataGen/Credit_score.csv
+
+
+/home/GPH/Documents/Commerce-Security-Governance-Over-privacy-alliance-CSGO-/DataGen/result.csv
+
+/home/GPH/Documents/Commerce-Security-Governance-Over-privacy-alliance-CSGO-/DataGen/result.csv
+
+/home/GPH/Documents/Commerce-Security-Governance-Over-privacy-alliance-CSGO-/DataGen/result.csv

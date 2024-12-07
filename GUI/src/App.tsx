@@ -41,7 +41,7 @@ const App: React.FC = () => {
             >
             <a href="https://github.com/bbbbhrrrr/Commerce-Security-Governance-Over-privacy-alliance-CSGO-" target="_blank" rel="noopener noreferrer">
               <img
-              src="src/assets/logo.png" // 替换为你的图标路径
+              src="src/assets/logo_rsq.png" // 替换为你的图标路径
               alt="Logo"
               style={{
                 position: "absolute",
@@ -156,7 +156,7 @@ const linkStyle = (isActive: boolean) => ({
   width: "80%", // 让链接占据整个导航项的宽度
   padding: "0.8rem", // 给链接添加一些内边距
   borderRadius: "10px", // 链接圆角
-  backgroundColor: isActive ? "#0056b3" : "#007bff", // 选中时变色
+  backgroundColor: isActive ? "#050C9C" : "#3572EF", // 选中时变色
   textAlign: "center", // 确保文字水平居中
   transition: "background-color 0.3s ease",
 });

@@ -10,7 +10,8 @@ const InteractionSetting: React.FC = () => {
         display: "flex",
         flexDirection: "column",
         height: "100%",
-        padding: "1rem",
+        padding: "0rem",
+        paddingLeft: "1rem",
         gap: "1rem",
       }}
     >

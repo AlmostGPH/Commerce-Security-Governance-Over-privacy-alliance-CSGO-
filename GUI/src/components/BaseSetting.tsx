@@ -20,8 +20,9 @@ const BaseSetting: React.FC = () => {
       style={{
         display: "flex",
         flexDirection: "column",
-        height: "100vh",
-        padding: "1rem",
+        height: "100%",
+        padding: "0rem",
+        paddingLeft: "1rem",
       }}
     >
       {/* 头栏 */}
@@ -69,7 +70,7 @@ const BaseSetting: React.FC = () => {
         >
           <span style={{ color: "3572EF" }}>C</span>ommerce <span style={{ color: "3572EF" }}>S</span>ecurity <span style={{ color: "3572EF" }}>G</span>overnance <span style={{ color: "3572EF" }}>O</span>ver privacy alliance
         </div>
-        <div style={{ fontSize: "1rem" }}>版本号: 1.0.0</div>
+        <div style={{ fontSize: "1rem" }}>版本号: 0.1.1</div>
       </div>
 
       {/* 环境检查 */}

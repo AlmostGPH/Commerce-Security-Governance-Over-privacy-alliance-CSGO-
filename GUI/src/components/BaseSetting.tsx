@@ -67,7 +67,7 @@ const BaseSetting: React.FC = () => {
         marginBottom: "0.5rem",
           }}
         >
-          Commerce-Security-Governance-Over-privacy-alliance
+          <span style={{ color: "3572EF" }}>C</span>ommerce <span style={{ color: "3572EF" }}>S</span>ecurity <span style={{ color: "3572EF" }}>G</span>overnance <span style={{ color: "3572EF" }}>O</span>ver privacy alliance
         </div>
         <div style={{ fontSize: "1rem" }}>版本号: 1.0.0</div>
       </div>

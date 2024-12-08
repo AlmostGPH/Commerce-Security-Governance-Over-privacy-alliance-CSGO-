@@ -166,7 +166,7 @@ const InteractionSetting: React.FC = () => {
         style={{
           flex: "1 1 auto",
           display: "flex",
-          gap: "1rem",
+          gap: "2rem",
           justifyContent: "space-between",
           backgroundColor: "#f4f4f4",
           borderRadius: "8px",

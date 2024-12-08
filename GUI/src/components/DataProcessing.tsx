@@ -1,6 +1,22 @@
 import React from "react";
+import { Command } from "@tauri-apps/plugin-shell";
 
 const DataProcessing: React.FC = () => {
+  // 按钮点击事件处理函数
+  const handleStartProcessing = async () => {
+    try {
+      // 创建并运行 Shell 命令
+      const command = Command.create("python3", ["src-tauri/scripts/date_man.py"]);
+      const output = await command.execute();
+
+      console.log("Command output:", output);
+      alert("处理完成！请检查日志或结果。");
+    } catch (error) {
+      console.error("Error executing command:", error);
+      alert("处理失败，请检查脚本或配置！");
+    }
+  };
+
   return (
     <div
       style={{
@@ -49,8 +65,8 @@ const DataProcessing: React.FC = () => {
             gap: "1rem",
           }}
         >
-            {/* 第一列：文件路径选择框 */}
-            <div
+          {/* 第一列：文件路径选择框 */}
+          <div
             style={{
               flex: "3 1 auto",
               display: "flex",
@@ -62,82 +78,82 @@ const DataProcessing: React.FC = () => {
               paddingLeft: "0rem",
               paddingTop: "1rem",
             }}
-            >
+          >
             <div>
               <label htmlFor="weekly-path" style={{ fontWeight: "bold" }}>
-              周记录文件路径:
+                周记录文件路径:
               </label>
               <input
-              type="file"
-              id="weekly-path"
-              style={{ ...inputStyle, paddingRight: "0rem", width: "98.5%", paddingBottom:"0.5rem" }}
-              placeholder="请选择周记录文件"
+                type="file"
+                id="weekly-path"
+                style={{ ...inputStyle, paddingRight: "0rem", width: "98.5%", paddingBottom: "0.5rem" }}
+                placeholder="请选择周记录文件"
               />
             </div>
 
             <div>
               <label htmlFor="monthly-path" style={{ fontWeight: "bold" }}>
-              月记录文件路径:
+                月记录文件路径:
               </label>
               <input
-              type="file"
-              id="monthly-path"
-              style={{ ...inputStyle, paddingRight: "0rem", width: "98.5%" }}
-              placeholder="请选择月记录文件"
+                type="file"
+                id="monthly-path"
+                style={{ ...inputStyle, paddingRight: "0rem", width: "98.5%" }}
+                placeholder="请选择月记录文件"
               />
             </div>
 
             <div>
               <label htmlFor="yearly-path" style={{ fontWeight: "bold" }}>
-              年记录文件路径:
+                年记录文件路径:
               </label>
               <input
-              type="file"
-              id="yearly-path"
-              style={{ ...inputStyle, paddingRight: "0rem", width: "98.5%" }}
-              placeholder="请选择年记录文件"
+                type="file"
+                id="yearly-path"
+                style={{ ...inputStyle, paddingRight: "0rem", width: "98.5%" }}
+                placeholder="请选择年记录文件"
               />
             </div>
 
             {/* 配置按钮 */}
             <div
               style={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginTop: "0rem",
-              gap: "1rem",
-              padding: "0rem",
+                display: "flex",
+                justifyContent: "space-between",
+                marginTop: "0rem",
+                gap: "1rem",
+                padding: "0rem",
               }}
             >
               <button
-              style={{
-                flex: "1 1 auto",
-                padding: "1rem",
-                fontSize: "1rem",
-                borderRadius: "8px",
-                backgroundColor: "#3572EF",
-                color: "white",
-                fontWeight: "bold",
-                border: "none",
-                cursor: "pointer",
-              }}
+                style={{
+                  flex: "1 1 auto",
+                  padding: "1rem",
+                  fontSize: "1rem",
+                  borderRadius: "8px",
+                  backgroundColor: "#3572EF",
+                  color: "white",
+                  fontWeight: "bold",
+                  border: "none",
+                  cursor: "pointer",
+                }}
               >
-              加载上一次配置
+                加载上一次配置
               </button>
               <button
-              style={{
-                flex: "1 1 auto",
-                padding: "1rem",
-                fontSize: "1rem",
-                borderRadius: "8px",
-                backgroundColor: "#050C9C",
-                color: "white",
-                fontWeight: "bold",
-                border: "none",
-                cursor: "pointer",
-              }}
+                style={{
+                  flex: "1 1 auto",
+                  padding: "1rem",
+                  fontSize: "1rem",
+                  borderRadius: "8px",
+                  backgroundColor: "#050C9C",
+                  color: "white",
+                  fontWeight: "bold",
+                  border: "none",
+                  cursor: "pointer",
+                }}
               >
-              保存
+                保存
               </button>
             </div>
           </div>
@@ -164,6 +180,7 @@ const DataProcessing: React.FC = () => {
                 width: "100%",
                 height: "100%",
               }}
+              onClick={handleStartProcessing}
             >
               开始处理！
             </button>

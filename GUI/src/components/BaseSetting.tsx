@@ -240,7 +240,7 @@ const BaseSetting: React.FC = () => {
                 padding: "0rem",
                 borderRadius: "8px",
                 border: "1px solid #ddd",
-                backgroundColor: isActive ? "#0056b3" : "#3572EF",
+                backgroundColor: isActive ? "#0056b3" : "#050C9C",
                 color: "white",
                 fontWeight: "bold",
                 cursor: "pointer",

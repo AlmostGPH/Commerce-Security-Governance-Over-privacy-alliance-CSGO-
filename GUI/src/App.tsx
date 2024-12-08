@@ -28,6 +28,7 @@ const App: React.FC = () => {
             flexDirection: "column",
             justifyContent: "flex-start", // 修改为从顶部开始对齐
             alignItems: "center", // 使内容居中
+            borderRadius: "10px",
           }}
         >
             {/* 居中的图标 */}

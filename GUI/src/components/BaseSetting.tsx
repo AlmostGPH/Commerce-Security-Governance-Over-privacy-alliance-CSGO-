@@ -219,11 +219,11 @@ const BaseSetting: React.FC = () => {
           </div>
 
           {/* 第二列 */}
-          <div style={{ flex: "1 1 auto", display: "flex", flexDirection: "column", gap: "1rem" }}>
+          <div style={{ flex: "1 1 auto", display: "flex", flexDirection: "column", gap: "1rem", padding: "0rem" }}>
             <button
               style={{
                 flex: "2 0 auto",
-                padding: "0rem",
+                padding: "1rem",
                 borderRadius: "8px",
                 border: "1px solid #ddd",
                 backgroundColor: isActive ? "#0056b3" : "#3572EF",

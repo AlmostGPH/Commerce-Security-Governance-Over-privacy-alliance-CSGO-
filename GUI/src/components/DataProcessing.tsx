@@ -1,15 +1,29 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Command } from "@tauri-apps/plugin-shell";
+import { open } from "@tauri-apps/plugin-dialog";
 
 const DataProcessing: React.FC = () => {
-  const [terminalOutput, setTerminalOutput] = useState<string>("连接中...\n");
+  const [terminalOutput, setTerminalOutput] = useState<string>("等待连接...\n");
+  const [weeklyPath, setWeeklyPath] = useState<string>("");
+  const [monthlyPath, setMonthlyPath] = useState<string>("");
+  const [yearlyPath, setYearlyPath] = useState<string>("");
   const terminalRef = useRef<HTMLDivElement>(null);
 
-  // 按钮点击事件处理函数
+  // 开始处理的按钮点击事件
   const handleStartProcessing = async () => {
+    if (!weeklyPath || !monthlyPath || !yearlyPath) {
+      setTerminalOutput((prev) => prev + "[错误]: 请先选择所有必要的文件路径！\n");
+      return;
+    }
+
     try {
-      // 创建 Shell 命令实例
-      const command = Command.create("python3", ["scripts/date_man.py"]);
+      // 创建命令并动态传递参数
+      const command = Command.create("python3", [
+        "scripts/date_man.py",
+        "--weekly", weeklyPath,
+        "--monthly", monthlyPath,
+        "--yearly", yearlyPath,
+      ]);
 
       // 监听命令输出
       command.on("close", (data) => {
@@ -21,19 +35,36 @@ const DataProcessing: React.FC = () => {
       });
 
       command.stdout.on("data", (line) => {
-        setTerminalOutput((prev) => prev + line);
+        setTerminalOutput((prev) => prev + `[输出]: ${line}\n`);
       });
 
       command.stderr.on("data", (line) => {
-        setTerminalOutput((prev) => prev + `[进程]: ${line}\n`);
+        if (!line.includes("RuntimeWarning") && !line.includes("getattr")) {
+          setTerminalOutput((prev) => prev + `[提示]: ${line}\n`);
+        }
       });
 
       // 启动命令
       await command.spawn();
-      setTerminalOutput((prev) => prev + "处理完成！\n");
+      setTerminalOutput((prev) => prev + "连接成功！\n");
     } catch (error) {
       console.error("Error executing command:", error);
       setTerminalOutput((prev) => prev + "[错误]: 执行失败！\n");
+    }
+  };
+
+  // 文件选择逻辑
+  const handleFileSelect = async (setPath: React.Dispatch<React.SetStateAction<string>>) => {
+    try {
+      const filePath = await open({
+        multiple: false,
+        directory: false,
+      });
+      if (typeof filePath === "string") {
+        setPath(filePath);
+      }
+    } catch (error) {
+      console.error("Error selecting file:", error);
     }
   };
 
@@ -45,166 +76,34 @@ const DataProcessing: React.FC = () => {
   }, [terminalOutput]);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        height: "100%",
-        padding: "0rem",
-        paddingLeft: "1rem",
-        gap: "1rem",
-      }}
-    >
-      {/* 头栏 */}
-      <div
-        style={{
-          textAlign: "center",
-          fontSize: "1.5rem",
-          fontWeight: "bold",
-          padding: "1rem",
-          backgroundColor: "#f4f4f4",
-          borderRadius: "8px",
-          boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
-        }}
-      >
+    <div style={{ display: "flex", flexDirection: "column", height: "100%", gap: "1rem" }}>
+      <div style={{ textAlign: "center", fontSize: "1.5rem", fontWeight: "bold", padding: "1rem", backgroundColor: "#f4f4f4", borderRadius: "8px" }}>
         数据处理
       </div>
 
-      {/* 文件路径框 */}
-      <div
-        style={{
-          flex: "0 1 auto",
-          display: "flex",
-          flexDirection: "column",
-          gap: "0rem",
-          backgroundColor: "#f4f4f4",
-          borderRadius: "8px",
-          padding: "1rem",
-          boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
-        }}
-      >
+      <div style={{ flex: "0 1 auto", display: "flex", flexDirection: "column", gap: "0rem", backgroundColor: "#f4f4f4", borderRadius: "8px", padding: "1rem" }}>
         <h2 style={{ margin: 0, paddingBottom: "1rem" }}>文件路径</h2>
 
-        <div
-          style={{
-            display: "flex",
-            height: "100%",
-            gap: "1rem",
-          }}
-        >
-          <div
-            style={{
-              flex: "3 1 auto",
-              display: "flex",
-              flexDirection: "column",
-              gap: "1rem",
-              padding: "1rem 0",
-            }}
-          >
-            <div>
-              <label htmlFor="weekly-path" style={{ fontWeight: "bold" }}>
-                周记录文件路径:
-              </label>
-              <input
-                type="file"
-                id="weekly-path"
-                style={{
-                  width: "98.5%",
-                  padding: "0.5rem",
-                  borderRadius: "4px",
-                  border: "1px solid #ddd",
-                  fontSize: "1rem",
-                }}
-                placeholder="请选择周记录文件"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="monthly-path" style={{ fontWeight: "bold" }}>
-                月记录文件路径:
-              </label>
-              <input
-                type="file"
-                id="monthly-path"
-                style={{
-                  width: "98.5%",
-                  padding: "0.5rem",
-                  borderRadius: "4px",
-                  border: "1px solid #ddd",
-                  fontSize: "1rem",
-                }}
-                placeholder="请选择月记录文件"
-              />
-            </div>
-
-            <div>
-              <label htmlFor="yearly-path" style={{ fontWeight: "bold" }}>
-                年记录文件路径:
-              </label>
-              <input
-                type="file"
-                id="yearly-path"
-                style={{
-                  width: "98.5%",
-                  padding: "0.5rem",
-                  borderRadius: "4px",
-                  border: "1px solid #ddd",
-                  fontSize: "1rem",
-                }}
-                placeholder="请选择年记录文件"
-              />
-            </div>
-
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginTop: "0rem",
-                gap: "1rem",
-                padding: "0rem",
-              }}
-            >
-              <button
-                style={{
-                  flex: "1 1 auto",
-                  padding: "1rem",
-                  fontSize: "1rem",
-                  borderRadius: "8px",
-                  backgroundColor: "#3572EF",
-                  color: "white",
-                  fontWeight: "bold",
-                  border: "none",
-                  cursor: "pointer",
-                }}
-              >
-                加载上一次配置
-              </button>
-              <button
-                style={{
-                  flex: "1 1 auto",
-                  padding: "1rem",
-                  fontSize: "1rem",
-                  borderRadius: "8px",
-                  backgroundColor: "#050C9C",
-                  color: "white",
-                  fontWeight: "bold",
-                  border: "none",
-                  cursor: "pointer",
-                }}
-              >
-                保存
-              </button>
-            </div>
+        <div style={{ display: "flex", height: "100%", gap: "1rem" }}>
+          <div style={{ flex: "3 1 auto", display: "flex", flexDirection: "column", gap: "1rem" }}>
+            {[
+              { label: "周记录文件路径:", path: weeklyPath, setPath: setWeeklyPath },
+              { label: "月记录文件路径:", path: monthlyPath, setPath: setMonthlyPath },
+              { label: "年记录文件路径:", path: yearlyPath, setPath: setYearlyPath },
+            ].map(({ label, path, setPath }, index) => (
+              <div key={index}>
+                <label style={{ fontWeight: "bold" }}>{label}</label>
+                <div style={{ display: "flex", gap: "0.5rem" }}>
+                  <input type="text" value={path} readOnly style={{ flex: 1, padding: "0.5rem", borderRadius: "8px", border: "1px solid #ddd", fontSize: "1rem" }} />
+                  <button onClick={() => handleFileSelect(setPath)} style={{ padding: "0.5rem 1rem", backgroundColor: "#3572EF", color: "white", border: "none", borderRadius: "8px" }}>
+                    选择文件
+                  </button>
+                </div>
+              </div>
+            ))}
           </div>
 
-          <div
-            style={{
-              flex: "1 1 auto",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
+          <div style={{ flex: "1 1 auto", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <button
               style={{
                 padding: "1rem",
@@ -226,30 +125,20 @@ const DataProcessing: React.FC = () => {
         </div>
       </div>
 
-      <div
-        style={{
-          flex: "2 1 auto",
-          backgroundColor: "#f4f4f4",
-          borderRadius: "8px",
-          padding: "1rem",
-          boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
-          display: "flex",
-          flexDirection: "column",
-        }}
-      >
+      <div style={{ flex: "2 1 auto", backgroundColor: "#f4f4f4", borderRadius: "8px", padding: "1rem", display: "flex", flexDirection: "column" }}>
         <h2 style={{ margin: 0, paddingBottom: "0.5rem" }}>终端界面</h2>
         <div
           style={{
-            flex: 1, // 让终端界面填满剩余空间
+            flex: 1,
             backgroundColor: "#000",
             color: "#0f0",
             borderRadius: "8px",
             padding: "0.5rem",
-            overflowY: "auto", // 确保终端界面内容溢出时启用滚动条
+            overflowY: "auto",
             fontFamily: "monospace",
             whiteSpace: "pre-wrap",
             wordWrap: "break-word",
-            maxHeight: "calc(100vh - 645px)", // 动态高度：整个视窗高度减去其他固定部分
+            maxHeight: "calc(100vh - 525px)",
           }}
           ref={terminalRef}
         >

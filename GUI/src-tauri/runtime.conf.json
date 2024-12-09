@@ -1,0 +1,35 @@
+{
+    "python_env_path": "/path/to/python/env",
+    "file_save_path": "~/Documents/CSGO_works/",
+    "ray_cluster": {
+      "ip": "192.168.1.1",
+      "port": 20000
+    },
+    "participants": [
+      {
+        "name": "Alice",
+        "ip": "192.168.1.2",
+        "port": 9000
+      },
+      {
+        "name": "Bob",
+        "ip": "192.168.1.3",
+        "port": 9000
+      },
+      {
+        "name": "Carol",
+        "ip": "192.168.1.4",
+        "port": 9000
+      }
+    ],
+    "host_name": "Carol",
+    "training_data_path": "/path/to/training/data",
+    "prediction_data_path": "/path/to/prediction/data",
+    "results": {
+      "psi_results": "results/psi_results.csv",
+      "leveled_results": "results/leveled_results.csv",
+      "limited_results": "results/limited_results.csv",
+      "currency_results": "results/currency_results.html"
+    }
+  }
+  

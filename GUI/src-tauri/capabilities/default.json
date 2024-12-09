@@ -2,7 +2,9 @@
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "default",
   "description": "Capability for the main window",
-  "windows": ["main"],
+  "windows": [
+    "main"
+  ],
   "permissions": [
     "core:default",
     {
@@ -12,10 +14,29 @@
           "name": "python3",
           "cmd": "python3",
           "args": [
-            "scripts/date_man.py"
+            "scripts/date_man.py",
+            {
+              "validator": ".*"
+            },
+            {
+              "validator": ".*"
+            },
+            {
+              "validator": ".*"
+            },
+            {
+              "validator": ".*"
+            },
+            {
+              "validator": ".*"
+            },
+            {
+              "validator": ".*"
+            }
           ]
         }
       ]
-    }
+    },
+    "dialog:default"
   ]
 }

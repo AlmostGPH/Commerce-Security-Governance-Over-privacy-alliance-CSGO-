@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { open } from "@tauri-apps/plugin-dialog";
 import { readTextFile, writeFile } from "@tauri-apps/plugin-fs";
-import { BaseDirectory } from "@tauri-apps/plugin-fs";
-import { data } from "react-router-dom";
 
 const BaseSetting: React.FC = () => {
   const [envPath, setEnvPath] = useState("");
@@ -33,40 +31,19 @@ const BaseSetting: React.FC = () => {
 
   // 保存配置文件
   const saveConfig = async () => {
-    const configData = {
-      python_env_path: envPath,
-      file_save_path: fileSavePath,
-      ray_cluster: {
-        ip: rayIp,
-        port: parseInt(rayPort),
-      },
-      participants: [
-        {
-          name: spuName,
-          ip: spuIp,
-          port: parseInt(spuPort),
-        },
-        {
-          "name": "Bob",
-          "ip": "192.168.1.2",
-          "port": 9000
-        },
-        {
-          "name": "Carol",
-          "ip": "192.168.1.3",
-          "port": 9000
-        }
-      ],
-      "host_name": "Carol",
-      "training_data_path": "/path/to/training/data",
-      "prediction_data_path": "/path/to/prediction/data",
-      "results": {
-        "psi_results": "results/psi_results.csv",
-        "leveled_results": "results/leveled_results.csv",
-        "limited_results": "results/limited_results.csv",
-        "currency_results": "results/currency_results.html"
-      }
+    const config = await readTextFile("runtime.conf.json");
+    const configData = JSON.parse(config);
+    configData.python_env_path = envPath;
+    configData.file_save_path = fileSavePath;
+    configData.ray_cluster = {
+      ip: rayIp,
+      port: parseInt(rayPort),
     };
+    configData.participants[0] ={
+        name: spuName,
+        ip: spuIp,
+        port: parseInt(spuPort),
+      }
 
     try {
       let data = JSON.stringify(configData, null, 2);
@@ -74,7 +51,7 @@ const BaseSetting: React.FC = () => {
       await writeFile(
         "runtime.conf.json", uint8Data
     );
-      alert("配置保存成功！");
+      // alert("配置保存成功！");
     } catch (error) {
       console.error("Failed to save config:", error);
       alert("配置保存失败！");
@@ -175,7 +152,9 @@ const BaseSetting: React.FC = () => {
           boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <h3>环境检查</h3>
+        <h3 style={{ fontSize: "1.5rem", fontWeight: "bold", paddingBottom: "0rem", backgroundColor: "#f4f4f4", borderRadius: "8px" }}>
+          环境检查
+        </h3>
         <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
           {/* 检查按钮 */}
           <button
@@ -204,7 +183,12 @@ const BaseSetting: React.FC = () => {
               border: "1px solid #ddd",
             }}
           />
-          <button onClick={handleFileSelect} style={{ padding: "0.5rem 1rem", backgroundColor: "#3572EF", color: "white", border: "none", borderRadius: "8px", cursor: "pointer" }}>
+          <button 
+          onClick={handleFileSelect}
+          onMouseDown={(e) => (e.currentTarget.style.backgroundColor = "#2A5DB0")}
+          onMouseUp={(e) => (e.currentTarget.style.backgroundColor = "#3572EF")}
+          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#3572EF")}
+          style={{ padding: "0.6rem 1rem", backgroundColor: "#3572EF", color: "white", border: "none", borderRadius: "8px", cursor: "pointer" }}>
             隐语环境选择
           </button>
         </div>
@@ -220,7 +204,9 @@ const BaseSetting: React.FC = () => {
           boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <h3>基础设置</h3>
+        <h3 style={{ fontSize: "1.5rem", fontWeight: "bold", paddingBottom: "0rem", backgroundColor: "#f4f4f4", borderRadius: "8px" }}>
+          基础设置
+        </h3>
         <div style={{ display: "flex", gap: "1rem" }}>
           {/* 第一列 */}
           <div style={{ flex: "6 1 auto" }}>
@@ -240,9 +226,12 @@ const BaseSetting: React.FC = () => {
               />
               <button
                 onClick={handleFolderSelect}
+                onMouseDown={(e) => (e.currentTarget.style.backgroundColor = "#2A5DB0")}
+                onMouseUp={(e) => (e.currentTarget.style.backgroundColor = "#3572EF")}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#3572EF")}
                 style={{ padding: "0.5rem 1rem", backgroundColor: "#3572EF", color: "white", border: "none", borderRadius: "8px", cursor: "pointer" }}
               >
-                输出文件保存路径
+                文件保存路径选择
               </button>
             </div>
             <div style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}>
@@ -316,30 +305,36 @@ const BaseSetting: React.FC = () => {
             {/* 按钮操作 */}
             <button
               onClick={loadConfig}
+              onMouseDown={(e) => (e.currentTarget.style.backgroundColor = "#2A5DB0")}
+              onMouseUp={(e) => (e.currentTarget.style.backgroundColor = "#3572EF")}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#3572EF")}
               style={{
-                flex: "2 0 auto",
-                padding: "1rem",
-                borderRadius: "8px",
-                border: "1px solid #ddd",
-                backgroundColor: "#3572EF",
-                color: "white",
-                fontWeight: "bold",
-                cursor: "pointer",
+              flex: "2 0 auto",
+              padding: "1rem",
+              borderRadius: "8px",
+              border: "1px solid #ddd",
+              backgroundColor: "#3572EF",
+              color: "white",
+              fontWeight: "bold",
+              cursor: "pointer",
               }}
             >
               加载上一次设置
             </button>
             <button
               onClick={saveConfig}
+              onMouseDown={(e) => (e.currentTarget.style.backgroundColor = "#040A7A")}
+              onMouseUp={(e) => (e.currentTarget.style.backgroundColor = "#050C9C")}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#050C9C")}
               style={{
-                flex: "1 0 auto",
-                padding: "1rem",
-                borderRadius: "8px",
-                border: "1px solid #ddd",
-                backgroundColor: "#050C9C",
-                color: "white",
-                fontWeight: "bold",
-                cursor: "pointer",
+              flex: "1 0 auto",
+              padding: "1rem",
+              borderRadius: "8px",
+              border: "1px solid #ddd",
+              backgroundColor: "#050C9C",
+              color: "white",
+              fontWeight: "bold",
+              cursor: "pointer",
               }}
             >
               保存

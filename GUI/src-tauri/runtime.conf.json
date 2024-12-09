@@ -1,8 +1,8 @@
 {
-  "python_env_path": "~/Venvs/sf/venv/bin/activate",
-  "file_save_path": "~/Documents/CSGO_works/",
+  "python_env_path": "/home/GPH/sf/venv/bin/activate",
+  "file_save_path": "/home/GPH/Documents/CSGO_Test",
   "ray_cluster": {
-    "ip": "192.168.1.2",
+    "ip": "192.168.1.1",
     "port": 20000
   },
   "participants": [
@@ -13,22 +13,22 @@
     },
     {
       "name": "Bob",
-      "ip": "192.168.1.2",
+      "ip": "",
       "port": 9000
     },
     {
       "name": "Carol",
-      "ip": "192.168.1.3",
+      "ip": "",
       "port": 9000
     }
   ],
   "host_name": "Carol",
-  "training_data_path": "/path/to/training/data",
-  "prediction_data_path": "/path/to/prediction/data",
+  "training_data_path": "/home/GPH/Documents/Commerce-Security-Governance-Over-privacy-alliance-CSGO-/DataGen/count_orders_TB.csv",
+  "prediction_data_path": "/home/GPH/Documents/Commerce-Security-Governance-Over-privacy-alliance-CSGO-/DataGen/leveled_orders_TB.csv",
   "results": {
-    "psi_results": "results/psi_results.csv",
-    "leveled_results": "results/leveled_results.csv",
-    "limited_results": "results/limited_results.csv",
-    "currency_results": "results/currency_results.html"
+    "psi_results": "/home/GPH/Documents/CSGO_Testresults/psi_results.csv",
+    "leveled_results": "/home/GPH/Documents/CSGO_Testresults/leveled_results.csv",
+    "limited_results": "/home/GPH/Documents/CSGO_Testresults/limited_results.csv",
+    "currency_results": "/home/GPH/Documents/CSGO_Testresults/currency_results.html"
   }
 }

@@ -34,10 +34,13 @@ const RunInterface: React.FC = () => {
       >
         <button
           onClick={handleStart}
+          onMouseDown={(e) => (e.currentTarget.style.backgroundColor = "#2A5DB0")}
+          onMouseUp={(e) => (e.currentTarget.style.backgroundColor = "#3572EF")}
+          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#3572EF")}
           style={{
             flex: "1 1 auto",
-            padding: "1rem",
-            fontSize: "1.2rem",
+            padding: "0rem",
+            fontSize: "1.5rem",
             borderRadius: "8px",
             backgroundColor: "#3572EF",
             color: "white",
@@ -51,10 +54,13 @@ const RunInterface: React.FC = () => {
 
         <button
           onClick={handleStop}
+          onMouseDown={(e) => (e.currentTarget.style.backgroundColor = "#040A7A")}
+          onMouseUp={(e) => (e.currentTarget.style.backgroundColor = "#050C9C")}
+          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#050C9C")}
           style={{
             flex: "1 1 auto",
-            padding: "1rem",
-            fontSize: "1.2rem",
+            padding: "0rem",
+            fontSize: "1.5rem",
             borderRadius: "8px",
             backgroundColor: "#050C9C",
             color: "white",

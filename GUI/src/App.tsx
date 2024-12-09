@@ -5,6 +5,9 @@ import DataProcessing from "./components/DataProcessing";
 import InteractionSetting from "./components/InteractionSetting";
 import StartRun from "./components/StartRun";
 import ResultPreview from "./components/ResultPreview";
+import { saveWindowState, StateFlags } from '@tauri-apps/plugin-window-state';
+
+saveWindowState(StateFlags.ALL);
 
 const App: React.FC = () => {
   return (

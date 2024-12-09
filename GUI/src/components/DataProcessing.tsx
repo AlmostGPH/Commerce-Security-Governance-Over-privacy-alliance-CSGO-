@@ -76,12 +76,21 @@ const DataProcessing: React.FC = () => {
   }, [terminalOutput]);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", height: "100%", gap: "1rem" }}>
-      <div style={{ textAlign: "center", fontSize: "1.5rem", fontWeight: "bold", padding: "1rem", backgroundColor: "#f4f4f4", borderRadius: "8px" }}>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
+        padding: "0rem",
+        paddingLeft: "1rem",
+        gap: "1rem",
+      }}
+    >
+      <div style={{ textAlign: "center", fontSize: "1.5rem", fontWeight: "bold", padding: "1rem", backgroundColor: "#f4f4f4", borderRadius: "8px", boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",}}>
         数据处理
       </div>
 
-      <div style={{ flex: "0 1 auto", display: "flex", flexDirection: "column", gap: "0rem", backgroundColor: "#f4f4f4", borderRadius: "8px", padding: "1rem" }}>
+      <div style={{ flex: "0 1 auto", display: "flex", flexDirection: "column", gap: "0rem", backgroundColor: "#f4f4f4", borderRadius: "8px", padding: "1rem",boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)", }}>
         <h2 style={{ margin: 0, paddingBottom: "1rem" }}>文件路径</h2>
 
         <div style={{ display: "flex", height: "100%", gap: "1rem" }}>
@@ -95,7 +104,12 @@ const DataProcessing: React.FC = () => {
                 <label style={{ fontWeight: "bold" }}>{label}</label>
                 <div style={{ display: "flex", gap: "0.5rem" }}>
                   <input type="text" value={path} readOnly style={{ flex: 1, padding: "0.5rem", borderRadius: "8px", border: "1px solid #ddd", fontSize: "1rem" }} />
-                  <button onClick={() => handleFileSelect(setPath)} style={{ padding: "0.5rem 1rem", backgroundColor: "#3572EF", color: "white", border: "none", borderRadius: "8px" }}>
+                  <button 
+                  onClick={() => handleFileSelect(setPath)}
+                  onMouseDown={(e) => (e.currentTarget.style.backgroundColor = "#2A5DB0")}
+                  onMouseUp={(e) => (e.currentTarget.style.backgroundColor = "#3572EF")}
+                  onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#3572EF")} 
+                  style={{ padding: "0.5rem 1rem", backgroundColor: "#3572EF", color: "white", border: "none", borderRadius: "8px" }}>
                     选择文件
                   </button>
                 </div>
@@ -106,8 +120,8 @@ const DataProcessing: React.FC = () => {
           <div style={{ flex: "1 1 auto", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <button
               style={{
-                padding: "1rem",
-                fontSize: "1.2rem",
+                padding: "0rem",
+                fontSize: "1.5rem",
                 borderRadius: "8px",
                 backgroundColor: "#050C9C",
                 color: "white",
@@ -118,6 +132,9 @@ const DataProcessing: React.FC = () => {
                 height: "100%",
               }}
               onClick={handleStartProcessing}
+              onMouseDown={(e) => (e.currentTarget.style.backgroundColor = "#040A7A")}
+              onMouseUp={(e) => (e.currentTarget.style.backgroundColor = "#050C9C")}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#050C9C")}
             >
               开始处理！
             </button>
@@ -125,7 +142,7 @@ const DataProcessing: React.FC = () => {
         </div>
       </div>
 
-      <div style={{ flex: "2 1 auto", backgroundColor: "#f4f4f4", borderRadius: "8px", padding: "1rem", display: "flex", flexDirection: "column" }}>
+      <div style={{ flex: "2 1 auto", backgroundColor: "#f4f4f4", borderRadius: "8px", padding: "1rem", display: "flex", flexDirection: "column",boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)", }}>
         <h2 style={{ margin: 0, paddingBottom: "0.5rem" }}>终端界面</h2>
         <div
           style={{

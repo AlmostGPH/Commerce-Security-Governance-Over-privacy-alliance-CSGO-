@@ -37,6 +37,94 @@
         }
       ]
     },
+    {
+      "identifier": "shell:allow-spawn",
+      "allow": [
+        {
+          "name": "sh",
+          "cmd": "sh",
+          "args": [
+            "scripts/start.sh",
+            "--envPath",
+            {
+              "validator": ".*"
+            },
+            "--rayIp",
+            {
+              "validator": ".*"
+            },
+            "--rayPort",
+            {
+              "validator": ".*"
+            },
+            "--part1Name",
+            {
+              "validator": ".*"
+            },
+            "--part1Ip",
+            {
+              "validator": ".*"
+            },
+            "--part1Port",
+            {
+              "validator": ".*"
+            },
+            "--part2Name",
+            {
+              "validator": ".*"
+            },
+            "--part2Ip",
+            {
+              "validator": ".*"
+            },
+            "--part2Port",
+            {
+              "validator": ".*"
+            },
+            "--part3Name",
+            {
+              "validator": ".*"
+            },
+            "--part3Ip",
+            {
+              "validator": ".*"
+            },
+            "--part3Port",
+            {
+              "validator": ".*"
+            },
+            "--hostName",
+            {
+              "validator": ".*"
+            },
+            "--Tdate",
+            {
+              "validator": ".*"
+            },
+            "--Pdate",
+            {
+              "validator": ".*"
+            },
+            "--psiData",
+            {
+              "validator": ".*"
+            },
+            "--leveledData",
+            {
+              "validator": ".*"
+            },
+            "--limData",
+            {
+              "validator": ".*"
+            },
+            "--currData",
+            {
+              "validator": ".*"
+            }
+          ]
+        }
+      ]
+    },
     "dialog:default",
     {
       "identifier": "fs:allow-app-write-recursive",

@@ -13,18 +13,18 @@
     },
     {
       "name": "Bob",
-      "ip": "",
+      "ip": "192.168.1.2",
       "port": 9000
     },
     {
       "name": "Carol",
-      "ip": "",
+      "ip": "192.168.1.3",
       "port": 9000
     }
   ],
   "host_name": "Carol",
-  "training_data_path": "/home/GPH/Documents/Commerce-Security-Governance-Over-privacy-alliance-CSGO-/DataGen/count_orders_TB.csv",
-  "prediction_data_path": "/home/GPH/Documents/Commerce-Security-Governance-Over-privacy-alliance-CSGO-/DataGen/leveled_orders_TB.csv",
+  "training_data_path": "/home/GPH/Documents/Commerce-Security-Governance-Over-privacy-alliance-CSGO-/DataGen/leveled_orders_TB.csv",
+  "prediction_data_path": "/home/GPH/Documents/Commerce-Security-Governance-Over-privacy-alliance-CSGO-/DataGen/count_orders_TB.csv",
   "results": {
     "psi_results": "/home/GPH/Documents/CSGO_Testresults/psi_results.csv",
     "leveled_results": "/home/GPH/Documents/CSGO_Testresults/leveled_results.csv",

@@ -37,6 +37,14 @@
         }
       ]
     },
-    "dialog:default"
+    "dialog:default",
+    {
+      "identifier": "fs:allow-app-write-recursive",
+      "allow": [{ "path": "runtime.conf.json" }]
+    },
+    {
+      "identifier": "fs:allow-app-read-recursive",
+      "allow": [{ "path": "runtime.conf.json" }]
+    }
   ]
 }

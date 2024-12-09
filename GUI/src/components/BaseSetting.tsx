@@ -1,19 +1,111 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { open } from "@tauri-apps/plugin-dialog";
+import { readTextFile, writeFile } from "@tauri-apps/plugin-fs";
+import { BaseDirectory } from "@tauri-apps/plugin-fs";
+import { data } from "react-router-dom";
 
 const BaseSetting: React.FC = () => {
   const [envPath, setEnvPath] = useState("");
-  const [projectPath, setProjectPath] = useState("");
+  const [fileSavePath, setFileSavePath] = useState("");
   const [rayIp, setRayIp] = useState("");
   const [rayPort, setRayPort] = useState("20000");
   const [spuIp, setSpuIp] = useState("");
   const [spuPort, setSpuPort] = useState("9000");
-  const [isActive, setIsActive] = useState(false);
+  const [spuName, setSpuName] = useState("");
 
-  const handleFileInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files.length > 0) {
-      setEnvPath(event.target.files[0].path);
+  // 加载配置文件
+  const loadConfig = async () => {
+    try {
+      const config = await readTextFile("runtime.conf.json");
+      const configData = JSON.parse(config);
+
+      setEnvPath(configData.python_env_path || "");
+      setFileSavePath(configData.file_save_path || "");
+      setRayIp(configData.ray_cluster?.ip || "");
+      setRayPort(configData.ray_cluster?.port?.toString() || "20000");
+      setSpuIp(configData.participants?.[0]?.ip || "");
+      setSpuPort(configData.participants?.[0]?.port?.toString() || "9000");
+      setSpuName(configData.participants?.[0]?.name || "");
+    } catch (error) {
+      console.error("Failed to load config:", error);
     }
   };
+
+  // 保存配置文件
+  const saveConfig = async () => {
+    const configData = {
+      python_env_path: envPath,
+      file_save_path: fileSavePath,
+      ray_cluster: {
+        ip: rayIp,
+        port: parseInt(rayPort),
+      },
+      participants: [
+        {
+          name: spuName,
+          ip: spuIp,
+          port: parseInt(spuPort),
+        },
+        {
+          "name": "Bob",
+          "ip": "192.168.1.2",
+          "port": 9000
+        },
+        {
+          "name": "Carol",
+          "ip": "192.168.1.3",
+          "port": 9000
+        }
+      ],
+      "host_name": "Carol",
+      "training_data_path": "/path/to/training/data",
+      "prediction_data_path": "/path/to/prediction/data",
+      "results": {
+        "psi_results": "results/psi_results.csv",
+        "leveled_results": "results/leveled_results.csv",
+        "limited_results": "results/limited_results.csv",
+        "currency_results": "results/currency_results.html"
+      }
+    };
+
+    try {
+      let data = JSON.stringify(configData, null, 2);
+      let uint8Data = new TextEncoder().encode(data);
+      await writeFile(
+        "runtime.conf.json", uint8Data
+    );
+      alert("配置保存成功！");
+    } catch (error) {
+      console.error("Failed to save config:", error);
+      alert("配置保存失败！");
+    }
+  };
+
+  // 文件选择对话框
+  const handleFileSelect = async () => {
+    const selectedPath = await open({
+      multiple: false,
+      directory: false,
+    });
+    if (typeof selectedPath === "string") {
+      setEnvPath(selectedPath);
+    }
+  };
+
+  // 文件夹选择对话框
+  const handleFolderSelect = async () => {
+    const selectedPath = await open({
+      multiple: false,
+      directory: true,
+    });
+    if (typeof selectedPath === "string") {
+      setFileSavePath(selectedPath);
+    }
+  };
+
+  useEffect(() => {
+    loadConfig();
+  }, []);
 
   return (
     <div
@@ -68,11 +160,10 @@ const BaseSetting: React.FC = () => {
         marginBottom: "0.5rem",
           }}
         >
-          <span style={{ color: "3572EF" }}>C</span>ommerce <span style={{ color: "3572EF" }}>S</span>ecurity <span style={{ color: "3572EF" }}>G</span>overnance <span style={{ color: "3572EF" }}>O</span>ver privacy alliance
+          <span style={{ color: "#3572EF" }}>C</span>ommerce <span style={{ color: "#3572EF" }}>S</span>ecurity <span style={{ color: "#3572EF" }}>G</span>overnance <span style={{ color: "#3572EF" }}>O</span>ver privacy alliance
         </div>
         <div style={{ fontSize: "1rem" }}>版本号: 0.1.1</div>
       </div>
-
       {/* 环境检查 */}
       <div
         style={{
@@ -84,16 +175,16 @@ const BaseSetting: React.FC = () => {
           boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <h3 style={{ marginBottom: "1rem" }}>环境检查</h3>
-        <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+        <h3>环境检查</h3>
+        <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
           {/* 检查按钮 */}
           <button
             style={{
-              flex: "0 0 25%",
-              padding: "1rem",
-              borderRadius: "10px",
+              flex: "0 0 20%",
+              padding: "0.5rem",
+              borderRadius: "8px",
               border: "1px solid #ddd",
-              backgroundColor: isActive ? "#0056b3" : "#3572EF",
+              backgroundColor: "#3572EF",
               color: "white",
               fontWeight: "bold",
               cursor: "pointer",
@@ -101,20 +192,21 @@ const BaseSetting: React.FC = () => {
           >
             检查
           </button>
-          {/* 环境路径文件选择 */}
+          
           <input
-            type="file"
-            webkitdirectory=""
+            type="text"
             value={envPath}
-            onChange={handleFileInput}
+            readOnly
             style={{
               flex: 1,
-              padding: "0.5rem",
+              padding: "0.6rem",
               borderRadius: "8px",
               border: "1px solid #ddd",
             }}
-            placeholder="环境路径"
           />
+          <button onClick={handleFileSelect} style={{ padding: "0.5rem 1rem", backgroundColor: "#3572EF", color: "white", border: "none", borderRadius: "8px", cursor: "pointer" }}>
+            隐语环境选择
+          </button>
         </div>
       </div>
 
@@ -128,36 +220,39 @@ const BaseSetting: React.FC = () => {
           boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
         }}
       >
-        <h3 style={{ marginBottom: "1rem" }}>基础设置</h3>
+        <h3>基础设置</h3>
         <div style={{ display: "flex", gap: "1rem" }}>
           {/* 第一列 */}
           <div style={{ flex: "6 1 auto" }}>
-            {/* 项目文件保存路径 */}
-            <div style={{ marginBottom: "1rem", paddingRight: "1rem" }}>
+            {/* 文件保存路径 */}
+            <div style={{ display: "flex", gap: "1rem", }}>
               <input
-                type="file"
-                webkitdirectory="true"
-                directory=""
-                value={projectPath}
-                onChange={(e) => setProjectPath(e.target.files?.[0]?.path || "")}
-                placeholder="项目文件保存路径"
+                type="text"
+                value={fileSavePath}
+                readOnly
                 style={{
-                  width: "100%",
+                  flex: 1,
                   padding: "0.5rem",
                   borderRadius: "8px",
                   border: "1px solid #ddd",
+                  width: "70%"
                 }}
               />
+              <button
+                onClick={handleFolderSelect}
+                style={{ padding: "0.5rem 1rem", backgroundColor: "#3572EF", color: "white", border: "none", borderRadius: "8px", cursor: "pointer" }}
+              >
+                输出文件保存路径
+              </button>
             </div>
-            {/* Ray 集群 IP 和端口 */}
-            <div style={{ display: "flex", gap: "1rem", marginBottom: "1rem" }}>
+            <div style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}>
               <input
                 type="text"
+                placeholder="Ray 集群 IP"
                 value={rayIp}
                 onChange={(e) => setRayIp(e.target.value)}
-                placeholder="自己的 Ray 节点 IP"
                 style={{
-                  flex: "1 1 auto",
+                  flex: 1,
                   padding: "0.5rem",
                   borderRadius: "8px",
                   border: "1px solid #ddd",
@@ -165,51 +260,50 @@ const BaseSetting: React.FC = () => {
               />
               <input
                 type="number"
+                placeholder="Ray 集群端口"
                 value={rayPort}
                 onChange={(e) => setRayPort(e.target.value)}
-                placeholder="端口"
                 style={{
-                  flex: "1 1 auto",
+                  flex: 1,
                   padding: "0.5rem",
                   borderRadius: "8px",
                   border: "1px solid #ddd",
                 }}
               />
             </div>
-            {/* SPU IP 和端口 */}
-            <div style={{ display: "flex", gap: "1rem", marginBottom: "0rem" }}>
+            <div style={{ display: "flex", gap: "1rem", marginTop: "1rem" }}>
               {/* 姓名 */}
               <input
-                type="text"
-                placeholder="姓名"
-                style={{
-                  flex: "1 1 auto",
-                  padding: "0.5rem",
-                  borderRadius: "8px",
-                  border: "1px solid #ddd",
-                }}
-              />
-              {/* SPU IP */}
+                    type="text"
+                    placeholder="姓名"
+                    value={spuName}
+                    onChange={(e) => setSpuName(e.target.value)}
+                    style={{
+                      flex: "1",
+                      padding: "0.5rem",
+                      borderRadius: "8px",
+                      border: "1px solid #ddd",
+                    }}
+                  />
               <input
                 type="text"
+                placeholder="自己的 SPU 设备 IP"
                 value={spuIp}
                 onChange={(e) => setSpuIp(e.target.value)}
-                placeholder="自己的 SPU 设备 IP"
                 style={{
-                  flex: "1 1 auto",
+                  flex: 1,
                   padding: "0.5rem",
                   borderRadius: "8px",
                   border: "1px solid #ddd",
                 }}
               />
-              {/* 端口 */}
               <input
                 type="number"
+                placeholder="SPU 端口"
                 value={spuPort}
                 onChange={(e) => setSpuPort(e.target.value)}
-                placeholder="端口"
                 style={{
-                  flex: "1 1 auto",
+                  flex: 1,
                   padding: "0.5rem",
                   borderRadius: "8px",
                   border: "1px solid #ddd",
@@ -217,16 +311,17 @@ const BaseSetting: React.FC = () => {
               />
             </div>
           </div>
-
           {/* 第二列 */}
-          <div style={{ flex: "1 1 auto", display: "flex", flexDirection: "column", gap: "1rem", padding: "0rem" }}>
+          <div style={{ flex: "1 1 auto ", display: "flex", flexDirection: "column", gap: "1rem", padding: "0rem" }}>
+            {/* 按钮操作 */}
             <button
+              onClick={loadConfig}
               style={{
                 flex: "2 0 auto",
                 padding: "1rem",
                 borderRadius: "8px",
                 border: "1px solid #ddd",
-                backgroundColor: isActive ? "#0056b3" : "#3572EF",
+                backgroundColor: "#3572EF",
                 color: "white",
                 fontWeight: "bold",
                 cursor: "pointer",
@@ -235,12 +330,13 @@ const BaseSetting: React.FC = () => {
               加载上一次设置
             </button>
             <button
+              onClick={saveConfig}
               style={{
                 flex: "1 0 auto",
-                padding: "0rem",
+                padding: "1rem",
                 borderRadius: "8px",
                 border: "1px solid #ddd",
-                backgroundColor: isActive ? "#0056b3" : "#050C9C",
+                backgroundColor: "#050C9C",
                 color: "white",
                 fontWeight: "bold",
                 cursor: "pointer",
@@ -251,7 +347,7 @@ const BaseSetting: React.FC = () => {
           </div>
         </div>
       </div>
-    </div>
+  </div>
   );
 };
 

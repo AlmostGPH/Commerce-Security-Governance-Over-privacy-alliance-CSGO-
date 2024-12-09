@@ -109,7 +109,7 @@ const DataProcessing: React.FC = () => {
                 padding: "1rem",
                 fontSize: "1.2rem",
                 borderRadius: "8px",
-                backgroundColor: "#3572EF",
+                backgroundColor: "#050C9C",
                 color: "white",
                 fontWeight: "bold",
                 border: "none",

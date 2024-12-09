@@ -5,6 +5,17 @@
   "windows": ["main"],
   "permissions": [
     "core:default",
-    "shell:allow-open"
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        {
+          "name": "python3",
+          "cmd": "python3",
+          "args": [
+            "scripts/date_man.py"
+          ]
+        }
+      ]
+    }
   ]
 }

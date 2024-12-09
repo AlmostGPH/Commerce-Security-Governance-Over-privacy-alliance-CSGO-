@@ -6,7 +6,7 @@ const DataProcessing: React.FC = () => {
   const handleStartProcessing = async () => {
     try {
       // 创建并运行 Shell 命令
-      const command = Command.create("python3", ["src-tauri/scripts/date_man.py"]);
+      const command = Command.create("python3", ["scripts/date_man.py"]);
       const output = await command.execute();
 
       console.log("Command output:", output);

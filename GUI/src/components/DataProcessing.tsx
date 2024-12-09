@@ -1,21 +1,48 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Command } from "@tauri-apps/plugin-shell";
 
 const DataProcessing: React.FC = () => {
+  const [terminalOutput, setTerminalOutput] = useState<string>("连接中...\n");
+  const terminalRef = useRef<HTMLDivElement>(null);
+
   // 按钮点击事件处理函数
   const handleStartProcessing = async () => {
     try {
-      // 创建并运行 Shell 命令
+      // 创建 Shell 命令实例
       const command = Command.create("python3", ["scripts/date_man.py"]);
-      const output = await command.execute();
 
-      console.log("Command output:", output);
-      alert("处理完成！请检查日志或结果。");
+      // 监听命令输出
+      command.on("close", (data) => {
+        setTerminalOutput((prev) => prev + `\n[完成]: 进程退出，代码: ${data.code}\n`);
+      });
+
+      command.on("error", (error) => {
+        setTerminalOutput((prev) => prev + `[错误]: ${error}\n`);
+      });
+
+      command.stdout.on("data", (line) => {
+        setTerminalOutput((prev) => prev + line);
+      });
+
+      command.stderr.on("data", (line) => {
+        setTerminalOutput((prev) => prev + `[进程]: ${line}\n`);
+      });
+
+      // 启动命令
+      await command.spawn();
+      setTerminalOutput((prev) => prev + "处理完成！\n");
     } catch (error) {
       console.error("Error executing command:", error);
-      alert("处理失败，请检查脚本或配置！");
+      setTerminalOutput((prev) => prev + "[错误]: 执行失败！\n");
     }
   };
+
+  // 自动滚动到最新内容
+  useEffect(() => {
+    if (terminalRef.current) {
+      terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
+    }
+  }, [terminalOutput]);
 
   return (
     <div
@@ -65,18 +92,13 @@ const DataProcessing: React.FC = () => {
             gap: "1rem",
           }}
         >
-          {/* 第一列：文件路径选择框 */}
           <div
             style={{
               flex: "3 1 auto",
               display: "flex",
               flexDirection: "column",
               gap: "1rem",
-              padding: "0rem",
-              paddingRight: "0rem",
-              paddingBottom: "0rem",
-              paddingLeft: "0rem",
-              paddingTop: "1rem",
+              padding: "1rem 0",
             }}
           >
             <div>
@@ -86,7 +108,13 @@ const DataProcessing: React.FC = () => {
               <input
                 type="file"
                 id="weekly-path"
-                style={{ ...inputStyle, paddingRight: "0rem", width: "98.5%", paddingBottom: "0.5rem" }}
+                style={{
+                  width: "98.5%",
+                  padding: "0.5rem",
+                  borderRadius: "4px",
+                  border: "1px solid #ddd",
+                  fontSize: "1rem",
+                }}
                 placeholder="请选择周记录文件"
               />
             </div>
@@ -98,7 +126,13 @@ const DataProcessing: React.FC = () => {
               <input
                 type="file"
                 id="monthly-path"
-                style={{ ...inputStyle, paddingRight: "0rem", width: "98.5%" }}
+                style={{
+                  width: "98.5%",
+                  padding: "0.5rem",
+                  borderRadius: "4px",
+                  border: "1px solid #ddd",
+                  fontSize: "1rem",
+                }}
                 placeholder="请选择月记录文件"
               />
             </div>
@@ -110,12 +144,17 @@ const DataProcessing: React.FC = () => {
               <input
                 type="file"
                 id="yearly-path"
-                style={{ ...inputStyle, paddingRight: "0rem", width: "98.5%" }}
+                style={{
+                  width: "98.5%",
+                  padding: "0.5rem",
+                  borderRadius: "4px",
+                  border: "1px solid #ddd",
+                  fontSize: "1rem",
+                }}
                 placeholder="请选择年记录文件"
               />
             </div>
 
-            {/* 配置按钮 */}
             <div
               style={{
                 display: "flex",
@@ -158,7 +197,6 @@ const DataProcessing: React.FC = () => {
             </div>
           </div>
 
-          {/* 第二列：处理按钮 */}
           <div
             style={{
               flex: "1 1 auto",
@@ -188,7 +226,6 @@ const DataProcessing: React.FC = () => {
         </div>
       </div>
 
-      {/* 终端界面框 */}
       <div
         style={{
           flex: "2 1 auto",
@@ -203,28 +240,24 @@ const DataProcessing: React.FC = () => {
         <h2 style={{ margin: 0, paddingBottom: "0.5rem" }}>终端界面</h2>
         <div
           style={{
-            flex: 1,
+            flex: 1, // 让终端界面填满剩余空间
             backgroundColor: "#000",
             color: "#0f0",
             borderRadius: "8px",
             padding: "0.5rem",
-            overflowY: "auto",
+            overflowY: "auto", // 确保终端界面内容溢出时启用滚动条
             fontFamily: "monospace",
+            whiteSpace: "pre-wrap",
+            wordWrap: "break-word",
+            maxHeight: "calc(100vh - 645px)", // 动态高度：整个视窗高度减去其他固定部分
           }}
+          ref={terminalRef}
         >
-          <p>连接中...</p>
+          {terminalOutput}
         </div>
       </div>
     </div>
   );
-};
-
-const inputStyle: React.CSSProperties = {
-  width: "100%",
-  padding: "0.5rem",
-  borderRadius: "4px",
-  border: "1px solid #ddd",
-  fontSize: "1rem",
 };
 
 export default DataProcessing;

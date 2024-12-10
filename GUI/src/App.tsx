@@ -7,6 +7,7 @@ import StartRun from "./components/StartRun";
 import ResultPreview from "./components/ResultPreview";
 import { saveWindowState, StateFlags } from '@tauri-apps/plugin-window-state';
 
+
 saveWindowState(StateFlags.ALL);
 
 const App: React.FC = () => {
@@ -16,8 +17,8 @@ const App: React.FC = () => {
         style={{
           display: "flex",
           height: "100vh",
-          minWidth: "1300px", // 限制窗口最小宽度
-          minHeight: "800px", // 限制窗口最小高度
+          minWidth: "1500px", // 限制窗口最小宽度
+          minHeight: "700px", // 限制窗口最小高度
         }}
       >
         {/* 左侧导航栏 */}
@@ -45,7 +46,7 @@ const App: React.FC = () => {
             >
             <a href="https://github.com/bbbbhrrrr/Commerce-Security-Governance-Over-privacy-alliance-CSGO-" target="_blank" rel="noopener noreferrer">
               <img
-              src="src/assets/logo_rsq.png" // 替换为你的图标路径
+              src="logo_rsq.png" // 替换为你的图标路径
               alt="Logo"
               style={{
                 position: "absolute",
@@ -117,7 +118,7 @@ const App: React.FC = () => {
             <div style={{ marginTop: "auto", width: "100%", display: "flex", justifyContent: "center", paddingBottom: "1rem", paddingLeft: "2rem" }}>
             <a href="https://secret-flow.antgroup.com/" target="_blank" rel="noopener noreferrer">
               <img
-              src="/src/assets/sf.png" // 替换为你的底层框架图片路径
+              src="sf.png" // 替换为你的底层框架图片路径
               alt="底层框架"
               style={{
               width: "80%", // 使图片宽度占满导航栏

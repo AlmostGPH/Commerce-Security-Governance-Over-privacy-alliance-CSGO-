@@ -13,8 +13,8 @@
     "windows": [
       {
         "title": "CSGO GUI",
-        "width": 1600,
-        "height": 1000
+        "width": 1300,
+        "height": 600
       }
     ],
     "security": {
@@ -26,8 +26,12 @@
     "targets": "all",
     "icon": [
       "icons/logo_rsq.png",
-      "icons/logo_r.png",
-      "icons/logo_sq.png"
+      "favicon/favicon.ico"
+    ],
+    "resources": [
+      "scripts/**/*",
+      "runtime.conf.json",
+      "icons/logo_rsq.png"
     ]
   },
   "plugins": {

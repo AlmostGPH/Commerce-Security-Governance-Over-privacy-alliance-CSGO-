@@ -241,7 +241,7 @@ const InteractionSetting: React.FC = () => {
             <select
           value={host}
           onChange={(e) => setHost(e.target.value)}
-          style={{ ...selectStyle, height: "72.5%", borderRadius: "10px", border: "1px solid #ddd", padding: "0.5rem", flex: "1 1 auto", boxSizing: "border-box",fontWeight: "bold" }}
+          style={{ ...selectStyle, height: "72.5%", borderRadius: "8px", border: "1px solid #ddd", padding: "0.5rem", flex: "1 1 auto", boxSizing: "border-box",fontWeight: "bold" }}
             >
           <option value="">请选择主持人</option>
           {[spuName_1, spuName_2, spuName_3].map((name, index) => (

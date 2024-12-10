@@ -126,7 +126,7 @@ const BaseSetting: React.FC = () => {
         }}
       >
         <img
-          src="src/assets/logo_rsq.png"
+          src="logo_rsq.png"
           alt="Logo"
           style={{ width: "200px", height: "200px", marginBottom: "1rem" }}
         />
@@ -181,6 +181,7 @@ const BaseSetting: React.FC = () => {
               padding: "0.6rem",
               borderRadius: "8px",
               border: "1px solid #ddd",
+              fontSize: "1.3rem",
             }}
           />
           <button 
@@ -209,7 +210,7 @@ const BaseSetting: React.FC = () => {
         </h3>
         <div style={{ display: "flex", gap: "1rem" }}>
           {/* 第一列 */}
-          <div style={{ flex: "6 1 auto" }}>
+          <div style={{ flex: "0 1 auto" }}>
             {/* 文件保存路径 */}
             <div style={{ display: "flex", gap: "1rem", }}>
               <input
@@ -221,7 +222,8 @@ const BaseSetting: React.FC = () => {
                   padding: "0.5rem",
                   borderRadius: "8px",
                   border: "1px solid #ddd",
-                  width: "70%"
+                  width: "70%",
+                  fontSize: "1.3rem",
                 }}
               />
               <button
@@ -245,6 +247,7 @@ const BaseSetting: React.FC = () => {
                   padding: "0.5rem",
                   borderRadius: "8px",
                   border: "1px solid #ddd",
+                  fontSize: "1.3rem",
                 }}
               />
               <input
@@ -257,6 +260,7 @@ const BaseSetting: React.FC = () => {
                   padding: "0.5rem",
                   borderRadius: "8px",
                   border: "1px solid #ddd",
+                  fontSize: "1.3rem",
                 }}
               />
             </div>
@@ -272,6 +276,7 @@ const BaseSetting: React.FC = () => {
                       padding: "0.5rem",
                       borderRadius: "8px",
                       border: "1px solid #ddd",
+                      fontSize: "1.3rem",
                     }}
                   />
               <input
@@ -284,6 +289,7 @@ const BaseSetting: React.FC = () => {
                   padding: "0.5rem",
                   borderRadius: "8px",
                   border: "1px solid #ddd",
+                  fontSize: "1.3rem",
                 }}
               />
               <input
@@ -296,6 +302,7 @@ const BaseSetting: React.FC = () => {
                   padding: "0.5rem",
                   borderRadius: "8px",
                   border: "1px solid #ddd",
+                  fontSize: "1.3rem",
                 }}
               />
             </div>
@@ -317,6 +324,7 @@ const BaseSetting: React.FC = () => {
               color: "white",
               fontWeight: "bold",
               cursor: "pointer",
+              fontSize: "1.5rem",
               }}
             >
               加载上一次设置
@@ -335,6 +343,7 @@ const BaseSetting: React.FC = () => {
               color: "white",
               fontWeight: "bold",
               cursor: "pointer",
+              fontSize: "1.5rem",
               }}
             >
               保存

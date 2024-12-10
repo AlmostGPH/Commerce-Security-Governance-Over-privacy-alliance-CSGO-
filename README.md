@@ -1,7 +1,73 @@
-# CSGO: 联邦隐私商业安全保障
+
+
+# CSGO-联邦隐私商业安全保障
+
+
+<!-- PROJECT SHIELDS -->
+
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
+
+<!-- PROJECT LOGO -->
+<br />
+
+
+<p align="center">
+  <a href="https://github.com/shaojintian/Best_README_template/">
+    <img src="https://s2.loli.net/2024/12/10/x4Ptv8DnriGqg9A.png" alt="Logo" width="120" height="120">
+  </a>
+
+  <h3 align="center">CSGO 联邦隐私商业安全保障</h3>
+  <p align="center">
+    一个基于隐语的多方安全隐私计算垂直联邦拆分学习恶意用户额度限制系统
+
+</p>
+
+
 
 CSGO: 联邦隐私商业安全保障 （Commerce Security & Governance Over privacy alliance） 是基于 [隐语· SecretFlow](https://www.secretflow.org.cn/zh-CN/) 隐私计算框架，针对当前“先用后付”“仅退款”等电子商务新场景，实现的在不同平台间对购物者信用信息进行隐私共享与联邦学习的解决方案。
 
+ 
+## 目录
+
+- [环境要求](#环境要求)
+- [CLI部署](#部署)
+  - [获取源码](#获取源码)
+  - [安装依赖环境](#安装依赖环境)
+  - [调试运行](#调试运行)
+  - [配置](#配置)
+  - [启动 Ray 集群](#启动Ray集群)
+  - [初次运行](#初次运行)
+  - [非初次运行](#非初次运行)
+- [GUI部署](#GUI部署)
+  - [From Release](#FromRelease)
+  - [From Source](#FromSource)
+  - [获取源码](#获取源码)
+  - [安装依赖环境](#安装依赖环境)
+  - [安装必要的包](#安装必要的包)
+  - [开始构建](#开始构建)
+- [数据格式](#数据格式)
+  - [csv数据格式](#csv数据格式)
+    - [原始数据](#原始数据)
+    - [统计数据](#统计数据)
+    - [训练集数据](#训练集数据)
+    - [测试集数据](#测试集数据)
+- [CLI运行](#运行)
+- [项目运行](#项目运行)
+  - [生成数据集](#生成数据集)
+  - [统计数据](#统计数据)
+- [GUI运行](#GUI运行)
+  - [GUI引导](#GUI引导)
+
+
+
+
+
+---
 # 环境要求
 
 - GNU/Linux 
@@ -10,7 +76,7 @@ CSGO: 联邦隐私商业安全保障 （Commerce Security & Governance Over priv
 - Pip: >= 19.3
 - CPU/Memory: 推荐最低配置 8C16G
 
-# 部署
+# CLI部署
 
 cmd.txt 是用于演示视频的命令
 
@@ -42,7 +108,7 @@ python main.py --debug
 ## 配置
 
 
-## 启动 Ray 集群
+## 启动Ray集群
 
 将以下命令中的 `{IP}` 替换为当前运行机器的 IP 地址，将 `{Port}` 替换为你选择的用于 Ray 集群的端口，运行：
 ```bash
@@ -66,6 +132,48 @@ python main.py
 python main.py [-c path/to/config.py] --ray-address IP:PORT
 ```
 即可实现全无人值守运行。
+
+
+# GUI部署
+
+## FromRelease
+
+下载最新的 Release
+
+## FromSource
+
+### 获取源码
+
+```bash
+git clone https://github.com/bbbbhrrrr/Commerce-Security-Governance-Over-privacy-alliance-CSGO-.git
+cd Commerce-Security-Governance-Over-privacy-alliance-CSGO-/
+```
+
+### 安装依赖环境
+
+```bash
+python3.10 -m venv venv # 创建 Python 3.10 虚拟环境
+source venv/bin/activate # 激活虚拟环境
+pip install -r requirements.txt # 安装依赖包
+```
+### 安装必要的包
+
+> *本项目GUI使用Tauri框架，请直接前往Tauri官网配置前置：*[https://v2.tauri.app/zh-cn/start/prerequisites/](https://v2.tauri.app/zh-cn/start/prerequisites/)
+
+
+安装 tauri-cli
+```bash
+yay tauri-cli
+```
+
+### 开始构建
+
+```bash
+cd GUI
+npm install
+npm run tauri build --verbose
+```
+
 
 # 数据格式
 ## csv数据格式
@@ -113,7 +221,7 @@ level_Total即为对应的label。
 
 测试集数据的格式与统计数据格式要求相同。
 
-# 运行
+# CLI运行
 
 ## 项目运行
 
@@ -148,3 +256,10 @@ if __name__ == '__main__':
     # file9 = 'orders_Total_Half_Year.csv'
     # Level(file7,file8,file9)
 ```
+# GUI运行
+
+直接运行可执行文件
+
+## GUI引导
+
+todo

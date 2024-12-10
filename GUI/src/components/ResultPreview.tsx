@@ -1,50 +1,50 @@
-import React, { useState } from "react";
+import React, { } from "react";
 
 const ResultPreview: React.FC = () => {
   // 状态：HTML 和 CSV 文件路径
-  const [htmlPath, setHtmlPath] = useState<string | null>(null);
-  const [csvPath, setCsvPath] = useState<string | null>(null);
+  // const [htmlPath, setHtmlPath] = useState<string | null>(null);
+  // const [csvPath, setCsvPath] = useState<string | null>(null);
 
   // 渲染 HTML 内容
-  const renderHtmlContent = () => {
-    if (!htmlPath) {
-      return <p>无结果文件</p>;
-    }
-    return (
-      <iframe
-        src={htmlPath}
-        style={{
-          width: "100%",
-          height: "100%",
-          border: "none",
-          borderRadius: "8px",
-        }}
-        title="Accuracy Graph"
-      />
-    );
-  };
+  // const renderHtmlContent = () => {
+  //   if (!htmlPath) {
+  //     return <p>无结果文件</p>;
+  //   }
+  //   return (
+  //     <iframe
+  //       src={htmlPath}
+  //       style={{
+  //         width: "100%",
+  //         height: "100%",
+  //         border: "none",
+  //         borderRadius: "8px",
+  //       }}
+  //       title="Accuracy Graph"
+  //     />
+  //   );
+  // };
 
-  // 渲染 CSV 内容
-  const renderCsvContent = () => {
-    if (!csvPath) {
-      return <p>无结果文件</p>;
-    }
-    return (
-      <div
-        style={{
-          overflowX: "auto",
-          maxHeight: "100%",
-          padding: "0.5rem",
-          backgroundColor: "#f9f9f9",
-          borderRadius: "8px",
-          border: "1px solid #ddd",
-        }}
-      >
-        <p>此处应显示 CSV 文件内容...</p>
-        {/* 可扩展为解析和渲染 CSV 文件数据 */}
-      </div>
-    );
-  };
+  // // 渲染 CSV 内容
+  // const renderCsvContent = () => {
+  //   if (!csvPath) {
+  //     return <p>无结果文件</p>;
+  //   }
+  //   return (
+  //     <div
+  //       style={{
+  //         overflowX: "auto",
+  //         maxHeight: "100%",
+  //         padding: "0.5rem",
+  //         backgroundColor: "#f9f9f9",
+  //         borderRadius: "8px",
+  //         border: "1px solid #ddd",
+  //       }}
+  //     >
+  //       <p>此处应显示 CSV 文件内容...</p>
+  //       {/* 可扩展为解析和渲染 CSV 文件数据 */}
+  //     </div>
+  //   );
+  // };
 
   return (
     <div
@@ -94,7 +94,8 @@ const ResultPreview: React.FC = () => {
             overflow: "hidden",
           }}
         >
-          {renderHtmlContent()}
+          {/* {renderHtmlContent()} */}
+          无结果文件
         </div>
       </div>
 
@@ -120,7 +121,8 @@ const ResultPreview: React.FC = () => {
             overflow: "hidden",
           }}
         >
-          {renderCsvContent()}
+          {/* {renderCsvContent()} */}
+          无结果文件
         </div>
       </div>
     </div>

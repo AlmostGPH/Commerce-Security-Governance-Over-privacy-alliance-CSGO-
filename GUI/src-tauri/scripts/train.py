@@ -15,13 +15,8 @@ import tensorflow as tf
 import numpy as np
 from secretflow.data.vertical import read_csv
 
-ENDC = '\033[0m'
-RED = '\033[91m'
-GREEN = '\033[92m'
-YELLOW = '\033[93m'
-BLUE = '\033[94m'
 
-def get_data(users, spu, self_party=None):
+def get_data(users, spu, self_party=None, args=None):
     """获取数据"""
 
     key_columns = ['ID']
@@ -34,13 +29,14 @@ def get_data(users, spu, self_party=None):
         if self_party is not None and user != self_party:
             input_path[user] = ''
             continue
-        path = input(f"{BLUE}[*] 请输入 {user} 的文件路径: {ENDC}")
+        # path = input(f"[*] 请输入 {user} 的文件路径: ")
+        path = args.Tdate
         input_path[user] = path
 
     # input_path = {
     #     alice: '/home/GPH/Documents/Commerce-Security-Governance-Over-privacy-alliance-CSGO-/DataGen/leveled_orders_JD.csv',
     #     bob:  '/home/bbbbhrrrr/CSGO/Commerce-Security-Governance-Over-privacy-alliance-CSGO-/DataGen/leveled_orders_TB.csv',
-    #     carol:  '/home/lwzheng/workspace/sf/DataGen/leveled_Credit_score.csv'
+    #     carol:  '/home/lwzheng/workspace/sf/DataGen/leveled_Cit_score.csv'
     # }
 
     vdf = read_csv(input_path, spu=spu, keys=key_columns,
@@ -49,7 +45,7 @@ def get_data(users, spu, self_party=None):
     return vdf
 
 
-def get_predict_data(users, spu, self_party=None):
+def get_pict_data(users, spu, self_party=None,args=None):
     """获取预测数据"""
 
     # 初始化一个空字典来存储路径
@@ -60,7 +56,8 @@ def get_predict_data(users, spu, self_party=None):
         if self_party is not None and user != self_party:
             input_path[user] = ''
             continue
-        path = input(f"{BLUE}[*] 请输入 {user} 的文件路径: {ENDC}")
+        # path = input(f"[*] 请输入 {user} 的文件路径: ")
+        path = args.Pdate
         input_path[user] = path
 
     output_path = {}
@@ -69,7 +66,8 @@ def get_predict_data(users, spu, self_party=None):
         if self_party is not None and user != self_party:
             output_path[user] = ''
             continue
-        path = input(f"{BLUE}[*] 请输入 {user} 的输出路径: {ENDC}")
+        # path = input(f"[*] 请输入 {user} 的输出路径: ")
+        path = args.psiData
         output_path[user] = path
 
     # print(f"input_path = {input_path}")
@@ -87,7 +85,7 @@ def get_predict_data(users, spu, self_party=None):
         ['ID'], input_path, output_path, 'alice', protocol='ECDH_PSI_3PC', precheck_input=False, broadcast_result=False
     )
 
-    print(f"{GREEN}[✓] 隐私求交数据已保存到 {output_path}{ENDC}")
+    print(f"[✓] 隐私求交数据已保存到 {output_path}")
 
     vdf2 = read_csv(output_path, spu=spu, keys='ID',
                     drop_keys='ID', psi_protocl="ECDH_PSI_3PC")
@@ -129,7 +127,7 @@ def gen_train_data(vdf):
         data['Amount_of_Loss_JD'])
     data['Amount_of_Loss_TB'] = encoder.fit_transform(
         data['Amount_of_Loss_TB'])
-    data['Credit_Score'] = encoder.fit_transform(data['Credit_Score'])
+    data['Cit_Score'] = encoder.fit_transform(data['Cit_Score'])
 
     encoder = OneHotEncoder()
     label_JD = encoder.fit_transform(label_JD)
@@ -151,7 +149,7 @@ def gen_train_data(vdf):
     return train_data, test_data, train_label, test_label
 
 
-def man_predict_data(vdf):
+def man_pict_data(vdf):
     """处理预测数据"""
 
     # label_JD = vdf["level_JD"]
@@ -185,7 +183,7 @@ def man_predict_data(vdf):
         data['Amount_of_Loss_JD'])
     data['Amount_of_Loss_TB'] = encoder.fit_transform(
         data['Amount_of_Loss_TB'])
-    data['Credit_Score'] = encoder.fit_transform(data['Credit_Score'])
+    data['Cit_Score'] = encoder.fit_transform(data['Cit_Score'])
 
     # encoder = OneHotEncoder()
     # label_JD = encoder.fit_transform(label_JD)
@@ -325,16 +323,16 @@ def training(train_data, train_label, test_data, test_label, users):
     return history, sl_model
 
 
-def level_predict(sl_model, test_data, output_path, self_party):
+def level_pict(sl_model, test_data, output_path, self_party,args):
     """预测"""
 
-    # predict the test data
-    y_pred = sl_model.predict(test_data)
-    # print(f"type(y_pred) = {type(y_pred)}")
+    # pict the test data
+    y_p = sl_model.pict(test_data)
+    # print(f"type(y_p) = {type(y_p)}")
 
-    # print(sf.reveal(y_pred))    
+    # print(sf.reveal(y_p))    
 
-    data = sf.reveal(y_pred)
+    data = sf.reveal(y_p)
 
     # 将预测结果转换为 tensor张量
 
@@ -362,51 +360,52 @@ def level_predict(sl_model, test_data, output_path, self_party):
     # 找到每行最大值的索引
     max_indices = tf.argmax(tensor, axis=1)
     # 将索引转换为 one-hot 编码
-    predicted_one_hot = tf.one_hot(max_indices, depth=tensor.shape[1])
+    picted_one_hot = tf.one_hot(max_indices, depth=tensor.shape[1])
 
     # 打印预测结果和真实标签，作为对比
-    # print(f"predicted_one_hot = {predicted_one_hot}")
+    # print(f"picted_one_hot = {picted_one_hot}")
 
     # print(sf.reveal(test_label.partitions[carol].data))
 
-    df = pd.DataFrame(1 + tf.argmax(predicted_one_hot, axis=1))
+    df = pd.DataFrame(1 + tf.argmax(picted_one_hot, axis=1))
 
     # output_file = "Commerce-Security-Governance-Over-privacy-alliance-CSGO/Commerce-Security-Governance-Over-privacy-alliance-CSGO--main/DataGen/result.csv"
 
-    output_file = input(f'{BLUE}[*] 请输入等级预测结果保存路径: {ENDC}')
+    # output_file = input(f'{}[*] 请输入等级预测结果保存路径: {}')
+    output_file = args.leveledData
 
     df.to_csv(output_file, index=False)
 
-    # 读取 Credit_score_psi.csv 和 result.csv，跳过 result.csv 的第一行
-    credit_score_df = pd.read_csv(output_path[self_party])
+    # 读取 Cit_score_psi.csv 和 result.csv，跳过 result.csv 的第一行
+    cit_score_df = pd.read_csv(output_path[self_party])
     result_df = pd.read_csv(output_file, header=None, skiprows=1)
 
     # 合并数据
 
-    merge_data(credit_score_df, result_df, output_file)
+    merge_data(cit_score_df, result_df, output_file)
 
-    print(f"{GREEN}[✓] 等级预测结果已保存到： {output_file}{ENDC}")
+    print(f"[✓] 等级预测结果已保存到： {output_file}")
 
     return output_file
 
 
-def merge_data(credit_score_df, result_df, output_file):
+def merge_data(cit_score_df, result_df, output_file):
     """合并数据"""
 
     # 找到两者中较短的行数，进行截断
-    min_length = min(len(credit_score_df), len(result_df))
+    min_length = min(len(cit_score_df), len(result_df))
 
-    # 如果 Credit_score_psi.csv 更长，进行截断
-    credit_score_df = credit_score_df.iloc[:min_length]
+    # 如果 Cit_score_psi.csv 更长，进行截断
+    cit_score_df = cit_score_df.iloc[:min_length]
 
     # 如果 result.csv 更长，进行截断
     result_df = result_df.iloc[:min_length]
 
-    # 将 result.csv 中的数值替换到 credit_score_df 的 level 列
-    credit_score_df['level'] = result_df[0]
+    # 将 result.csv 中的数值替换到 cit_score_df 的 level 列
+    cit_score_df['level'] = result_df[0]
 
     # 将修改后的数据保存到新的 CSV 文件中，或者覆盖原文件
-    credit_score_df.to_csv(output_file, index=False)
+    cit_score_df.to_csv(output_file, index=False)
 
     # print(f"已成功更新 level 列，处理后的行数为 {min_length} 行。")
 
@@ -414,7 +413,7 @@ def merge_data(credit_score_df, result_df, output_file):
 def calculate_transaction_limits(plantform,order_amount_path, output_path,self_party_name):
 
     if self_party_name == 'carol':
-        print(f"{RED}[x] 无交易额度计算数据，跳过计算{ENDC}")
+        print(f"[x] 无交易额度计算数据，跳过计算")
         return
     
     # 读取订单金额数据和评级
@@ -425,7 +424,7 @@ def calculate_transaction_limits(plantform,order_amount_path, output_path,self_p
     merged_df = order_amount_df
 
     # 计算加权额度
-    # 假设 'Amount_of_Loss_Total' 是订单误差金额列，'Credit_Score' 是信誉分列
+    # 假设 'Amount_of_Loss_Total' 是订单误差金额列，'Cit_Score' 是信誉分列
     merged_df['Weighted_Amount'] = (merged_df['Amount_of_Loss' + plantform].max() - merged_df['Amount_of_Loss'+ plantform]) * (
         merged_df['level'].max() - merged_df['level'] + 0.5) * (merged_df['level'].max() - merged_df['level'] + 0.5)
     merged_df['Transaction_Limit'] = merged_df.groupby(
@@ -437,42 +436,36 @@ def calculate_transaction_limits(plantform,order_amount_path, output_path,self_p
 
     transaction_limits.to_csv(output_path, index=False)
 
-    print(f"{GREEN}[✓] 交易额度已保存到 {output_path}{ENDC}")
+    print(f"[✓] 交易额度已保存到 {output_path}")
 
 
-def show_mode_result(history):
+import plotly.graph_objects as go
+import plotly.io as pio
+from plotly.subplots import make_subplots
+
+def show_mode_result(history,args):
     """显示模型结果"""
 
+    # Create subplots
+    fig = make_subplots(rows=1, cols=3, subplot_titles=("Model loss", "Model accuracy", "Model Area Under Curve"))
+
     # Plot the change of loss during training
-    plt.figure(figsize=(12, 4))
-    plt.subplot(1, 3, 1)
-    plt.plot(history['train_loss'])
-    plt.plot(history['val_loss'])
-    plt.title('Model loss')
-    plt.ylabel('Loss')
-    plt.xlabel('Epoch')
-    plt.legend(['Train', 'Val'], loc='upper right')
+    fig.add_trace(go.Scatter(y=history['train_loss'], mode='lines', name='Train Loss'), row=1, col=1)
+    fig.add_trace(go.Scatter(y=history['val_loss'], mode='lines', name='Val Loss'), row=1, col=1)
 
     # Plot the change of accuracy during training
-    plt.subplot(1, 3, 2)
-    plt.plot(history['train_accuracy'])
-    plt.plot(history['val_accuracy'])
-    plt.title('Model accuracy')
-    plt.ylabel('Accuracy')
-    plt.xlabel('Epoch')
-    plt.legend(['Train', 'Val'], loc='upper left')
+    fig.add_trace(go.Scatter(y=history['train_accuracy'], mode='lines', name='Train Accuracy'), row=1, col=2)
+    fig.add_trace(go.Scatter(y=history['val_accuracy'], mode='lines', name='Val Accuracy'), row=1, col=2)
 
     # Plot the Area Under Curve(AUC) of loss during training
-    plt.subplot(1, 3, 3)
-    plt.plot(history['train_auc_1'])
-    plt.plot(history['val_auc_1'])
-    plt.title('Model Area Under Curve')
-    plt.ylabel('Area Under Curve')
-    plt.xlabel('Epoch')
-    plt.legend(['Train', 'Val'], loc='upper left')
+    fig.add_trace(go.Scatter(y=history['train_auc_1'], mode='lines', name='Train AUC'), row=1, col=3)
+    fig.add_trace(go.Scatter(y=history['val_auc_1'], mode='lines', name='Val AUC'), row=1, col=3)
 
-    output_path = input(f"{BLUE}[*] 请输入模型展示图片保存路径：{ENDC}")
+    # Update layout
+    fig.update_layout(title_text="Model Training Results", height=600, width=1200)
+
+    # output_path = input(f"[*] 请输入模型展示图片保存路径：")
+    output_path = args.currData
     
-    plt.tight_layout()
-    plt.savefig(output_path)
-    plt.show()
+    # Save the figure as an HTML file
+    pio.write_html(fig, file=output_path, auto_open=True)

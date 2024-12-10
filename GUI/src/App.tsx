@@ -152,7 +152,9 @@ const navItemStyle = {
   transition: "background-color 0.3s ease",
 };
 
-const linkStyle = (isActive: boolean) => ({
+import { CSSProperties } from "react";
+
+const linkStyle = (isActive: boolean): CSSProperties => ({
   textDecoration: "none",
   color: "#fff",
   fontSize: "1.1rem",
@@ -161,7 +163,7 @@ const linkStyle = (isActive: boolean) => ({
   padding: "0.8rem", // 给链接添加一些内边距
   borderRadius: "10px", // 链接圆角
   backgroundColor: isActive ? "#050C9C" : "#3572EF", // 选中时变色
-  textAlign: "center", // 确保文字水平居中
+  textAlign: "center" as CSSProperties["textAlign"], // 确保文字水平居中
   transition: "background-color 0.3s ease",
 });
 

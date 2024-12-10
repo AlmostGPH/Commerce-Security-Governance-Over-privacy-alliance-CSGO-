@@ -62,7 +62,7 @@ const BaseSetting: React.FC = () => {
   const handleFileSelect = async () => {
     const selectedPath = await open({
       multiple: false,
-      directory: false,
+      directory: true,
     });
     if (typeof selectedPath === "string") {
       setEnvPath(selectedPath);

@@ -1,14 +1,14 @@
 {
-  "python_env_path": "/home/GPH/sf/venv/bin/activate",
+  "python_env_path": "/home/GPH/sf/venv/bin",
   "file_save_path": "/home/GPH/Documents/CSGO_Test",
   "ray_cluster": {
-    "ip": "192.168.1.1",
+    "ip": "172.25.154.162",
     "port": 20000
   },
   "participants": [
     {
       "name": "Alice",
-      "ip": "192.168.1.1",
+      "ip": "172.25.154.162",
       "port": 9000
     },
     {

@@ -49,6 +49,10 @@
             {
               "validator": ".*"
             },
+            "--filePath",
+            {
+              "validator": ".*"
+            },
             "--rayIp",
             {
               "validator": ".*"
@@ -125,6 +129,21 @@
         }
       ]
     },
+    {
+      "identifier": "shell:allow-spawn",
+      "allow": [
+        {
+          "name": "sh",
+          "cmd": "sh",
+          "args": [
+            "-c",
+            "pkill",
+            "-f",
+            "scripts/start.sh"
+          ]
+        }
+      ]
+    },  
     "dialog:default",
     {
       "identifier": "fs:allow-app-write-recursive",

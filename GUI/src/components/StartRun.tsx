@@ -10,6 +10,7 @@ const RunInterface: React.FC = () => {
     const config = await readTextFile("runtime.conf.json");
     const configData = JSON.parse(config);
     const envPath = configData.python_env_path;
+    const filePath = configData.file_save_path;
     const rayIp = configData.ray_cluster.ip;
     const rayPort = configData.ray_cluster.port;
     const part1Name = configData.participants[0].name;
@@ -31,6 +32,7 @@ const RunInterface: React.FC = () => {
 
     if (
       !envPath ||
+      !filePath ||
       !rayIp ||
       !rayPort ||
       !part1Name ||
@@ -60,6 +62,8 @@ const RunInterface: React.FC = () => {
         "scripts/start.sh",
         "--envPath",
         envPath,
+        "--filePath",
+        filePath,
         "--rayIp",
         rayIp,
         "--rayPort",
@@ -135,10 +139,16 @@ const RunInterface: React.FC = () => {
     }
   }, [terminalOutput]);
 
-  const handleStopProcessing = () => {
-    // 创建命令并动态传递参数
-    const command = Command.create("^C");
-    command.execute();
+  const handleStopProcessing = async () => {
+    try {
+      const command = Command.create("sh", ["-c", "pkill -f scripts/start.sh"]);
+      await command.spawn();
+      setTerminalOutput((prev) => prev + "[提示]: 终止运行命令已发送。\n");
+    } catch (error) {
+      console.error("Error stopping command:", error);
+      console.log(error);
+      setTerminalOutput((prev) => prev + "[错误]: 终止运行失败！\n");
+    }
   };
 
   return (

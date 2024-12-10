@@ -140,9 +140,13 @@ const RunInterface: React.FC = () => {
   }, [terminalOutput]);
 
   const handleStopProcessing = async () => {
+    const config = await readTextFile("runtime.conf.json");
+    const configData = JSON.parse(config);
+    const envPath = configData.python_env_path;
     try {
-      const command = Command.create("sh", ["-c", "pkill -f scripts/start.sh"]);
+      const command = Command.create("bash", ["scripts/stop.sh","--envPath", envPath]);
       await command.spawn();
+      console.log("Command stopped successfully.");
       setTerminalOutput((prev) => prev + "[提示]: 终止运行命令已发送。\n");
     } catch (error) {
       console.error("Error stopping command:", error);
@@ -246,6 +250,7 @@ const RunInterface: React.FC = () => {
             whiteSpace: "pre-wrap",
             wordWrap: "break-word",
             maxHeight: "calc(100vh - 300px)",
+            maxWidth:"calc(100vw - 450px)",
           }}
           ref={terminalRef}
         >

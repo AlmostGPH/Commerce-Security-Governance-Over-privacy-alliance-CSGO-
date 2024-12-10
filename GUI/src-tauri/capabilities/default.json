@@ -133,13 +133,14 @@
       "identifier": "shell:allow-spawn",
       "allow": [
         {
-          "name": "sh",
+          "name": "bash",
           "cmd": "sh",
           "args": [
-            "-c",
-            "pkill",
-            "-f",
-            "scripts/start.sh"
+            "scripts/stop.sh",
+            "--envPath",
+            {
+              "validator": ".*"
+            }
           ]
         }
       ]

@@ -81,10 +81,6 @@ echo "正在释放python脚本"
 
 mkdir -p "$filePath/scripts"
 
-touch $filePath/main.py
-touch $filePath/train.py
-touch $filePath/init.py
-
 cat > $filePath/scripts/main.py <<EOF 
 import argparse
 import secretflow as sf
@@ -946,7 +942,7 @@ def get_config_triplets(args):
     return cluster_config, cluster_def, link_desc, self_party
 
 EOF
-
+echo "python脚本已释放"
 
 # 然后启动ray集群，示例：ray start --head --node-ip-address="192.168.141.89" --port="20000" --include-dashboard=False --disable-usage-stats
 

@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Command } from "@tauri-apps/plugin-shell";
 import { open } from "@tauri-apps/plugin-dialog";
+import { readTextFile } from "@tauri-apps/plugin-fs";
+
 
 const DataProcessing: React.FC = () => {
   const [terminalOutput, setTerminalOutput] = useState<string>("等待连接...\n");
@@ -11,18 +13,27 @@ const DataProcessing: React.FC = () => {
 
   // 开始处理的按钮点击事件
   const handleStartProcessing = async () => {
-    if (!weeklyPath || !monthlyPath || !yearlyPath) {
-      setTerminalOutput((prev) => prev + "[错误]: 请先选择所有必要的文件路径！\n");
+    const config = await readTextFile("runtime.conf.json");
+    const configData = JSON.parse(config);
+    
+    const envPath = configData.python_env_path || "";
+    const fileSavePath = configData.file_save_path || "";
+
+
+    if (!weeklyPath || !monthlyPath || !yearlyPath || !envPath || !fileSavePath) {
+      setTerminalOutput((prev) => prev + "[错误]: 请先选择所有必要的文件路径并检查环境路径！\n");
       return;
     }
 
     try {
       // 创建命令并动态传递参数
-      const command = Command.create("python3", [
-        "scripts/date_man.py",
+      const command = Command.create("manData", [
+        "scripts/data_man.sh",
         "--weekly", weeklyPath,
         "--monthly", monthlyPath,
         "--yearly", yearlyPath,
+        "--env", envPath,
+        "--save", fileSavePath,
       ]);
 
       // 监听命令输出

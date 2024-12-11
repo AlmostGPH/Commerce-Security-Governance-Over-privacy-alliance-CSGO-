@@ -11,25 +11,27 @@
       "identifier": "shell:allow-spawn",
       "allow": [
         {
-          "name": "python3",
-          "cmd": "python3",
+          "name": "manData",
+          "cmd": "sh",
           "args": [
-            "scripts/date_man.py",
+            "scripts/data_man.sh",
+            "--weekly",
             {
               "validator": ".*"
             },
+            "--monthly",
             {
               "validator": ".*"
             },
+            "--yearly",
             {
               "validator": ".*"
             },
+            "--env",
             {
               "validator": ".*"
             },
-            {
-              "validator": ".*"
-            },
+            "--save",
             {
               "validator": ".*"
             }

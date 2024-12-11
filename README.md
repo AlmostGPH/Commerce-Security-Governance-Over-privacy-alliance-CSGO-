@@ -261,10 +261,10 @@ if __name__ == '__main__':
 
 ## GUI引导
 
-![light.png](https://s2.loli.net/2024/12/11/aWFixzyK9HDm8Po.png#gh-light-mode-only)
+![light.png](https://s2.loli.net/2024/12/11/aWFixzyK9HDm8Po.png)
 
-
-![dark.png](https://s2.loli.net/2024/12/11/C2o8EafkJ3HSNue.png#gh-dark-mode-only)
+<!-- 
+![dark.png](https://s2.loli.net/2024/12/11/C2o8EafkJ3HSNue.png#gh-dark-mode-only) -->
 
 # TODO
 

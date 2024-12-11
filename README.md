@@ -257,12 +257,14 @@ if __name__ == '__main__':
 ```
 # GUI运行
 
-直接运行可执行文件
+部署完毕后运行可执行文件
 
 ## GUI引导
 
-todo
+![light.png](https://s2.loli.net/2024/12/11/aWFixzyK9HDm8Po.png#gh-light-mode-only)
 
+
+![dark.png](https://s2.loli.net/2024/12/11/C2o8EafkJ3HSNue.png#gh-dark-mode-only)
 
 # TODO
 

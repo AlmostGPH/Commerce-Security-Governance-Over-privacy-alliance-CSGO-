@@ -22,13 +22,13 @@
 
   <h3 align="center">CSGO 联邦隐私商业安全保障</h3>
   <p align="center">
-    一个基于隐语的多方安全隐私计算垂直联邦拆分学习恶意用户额度限制系统
+    一个基于隐语多方安全隐私计算框架和Tauri框架的拆分学习交易风控系统
 
 </p>
 
 
 
-CSGO: 联邦隐私商业安全保障 （Commerce Security & Governance Over privacy alliance） 是基于 [隐语· SecretFlow](https://www.secretflow.org.cn/zh-CN/) 隐私计算框架，针对当前“先用后付”“仅退款”等电子商务新场景，实现的在不同平台间对购物者信用信息进行隐私共享与联邦学习的解决方案。
+CSGO: 联邦隐私商业安全保障 （Commerce Security & Governance Over privacy alliance） 是基于 [隐语· SecretFlow](https://www.secretflow.org.cn/zh-CN/) 隐私计算框架，针对当前“先用后付”“仅退款”等电子商务新场景，通过不同平台间购物者信用信息隐私共享，使用拆分学习，从而识别恶意用户并限制额度的交易风控系统。
 
  
 ## 目录
@@ -261,10 +261,10 @@ if __name__ == '__main__':
 
 ## GUI引导
 
-![light.png](https://s2.loli.net/2024/12/11/aWFixzyK9HDm8Po.png)
+<!-- ![light.png](https://s2.loli.net/2024/12/11/aWFixzyK9HDm8Po.png) -->
 
-<!-- 
-![dark.png](https://s2.loli.net/2024/12/11/C2o8EafkJ3HSNue.png#gh-dark-mode-only) -->
+
+![dark.png](https://s2.loli.net/2024/12/11/C2o8EafkJ3HSNue.png)
 
 # TODO
 
@@ -285,7 +285,7 @@ if __name__ == '__main__':
 [stars-url]: https://github.com/bbbbhrrrr/Commerce-Security-Governance-Over-privacy-alliance-CSGO-/stargazers
 [issues-shield]: https://img.shields.io/github/issues/bbbbhrrrr/Commerce-Security-Governance-Over-privacy-alliance-CSGO-.svg?style=flat-square
 [issues-url]: https://img.shields.io/github/issues/bbbbhrrrr/Commerce-Security-Governance-Over-privacy-alliance-CSGO-.svg
-[license-shield]: https://img.shields.io/github/license/bbbbhrrrr/Commerce-Security-Governance-Over-privacy-alliance-CSGO-.svg?style=flat-square
-[license-url]: https://github.com/bbbbhrrrr/Commerce-Security-Governance-Over-privacy-alliance-CSGO-/blob/master/LICENSE.txt
+[license-shield]: https://img.shields.io/github/license/shaojintian/Best_README_template.svg?style=flat-square
+[license-url]: https://github.com/bbbbhrrrr/Commerce-Security-Governance-Over-privacy-alliance-CSGO-/blob/master/LICENSE
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/shaojintian

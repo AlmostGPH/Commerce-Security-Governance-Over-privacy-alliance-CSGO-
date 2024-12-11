@@ -10,14 +10,13 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
 
 <!-- PROJECT LOGO -->
 <br />
 
 
 <p align="center">
-  <a href="https://github.com/shaojintian/Best_README_template/">
+  <a href="https://github.com/bbbbhrrrr/Commerce-Security-Governance-Over-privacy-alliance-CSGO-/">
     <img src="https://s2.loli.net/2024/12/10/x4Ptv8DnriGqg9A.png" alt="Logo" width="120" height="120">
   </a>
 
@@ -263,3 +262,28 @@ if __name__ == '__main__':
 ## GUI引导
 
 todo
+
+
+# TODO
+
+- 图标显示修复
+- 界面大小修复
+- 元素宽度自适应修复
+- 自动预览结果
+- 环境检查与自动安装
+
+
+<!-- links -->
+[your-project-path]:/bbbbhrrrr/Commerce-Security-Governance-Over-privacy-alliance-CSGO-
+[contributors-shield]: https://img.shields.io/github/contributors/bbbbhrrrr/Commerce-Security-Governance-Over-privacy-alliance-CSGO-.svg?style=flat-square
+[contributors-url]: https://github.com/bbbbhrrrr/Commerce-Security-Governance-Over-privacy-alliance-CSGO-/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/bbbbhrrrr/Commerce-Security-Governance-Over-privacy-alliance-CSGO-.svg?style=flat-square
+[forks-url]: https://github.com/bbbbhrrrr/Commerce-Security-Governance-Over-privacy-alliance-CSGO-/network/members
+[stars-shield]: https://img.shields.io/github/stars/bbbbhrrrr/Commerce-Security-Governance-Over-privacy-alliance-CSGO-.svg?style=flat-square
+[stars-url]: https://github.com/bbbbhrrrr/Commerce-Security-Governance-Over-privacy-alliance-CSGO-/stargazers
+[issues-shield]: https://img.shields.io/github/issues/bbbbhrrrr/Commerce-Security-Governance-Over-privacy-alliance-CSGO-.svg?style=flat-square
+[issues-url]: https://img.shields.io/github/issues/bbbbhrrrr/Commerce-Security-Governance-Over-privacy-alliance-CSGO-.svg
+[license-shield]: https://img.shields.io/github/license/bbbbhrrrr/Commerce-Security-Governance-Over-privacy-alliance-CSGO-.svg?style=flat-square
+[license-url]: https://github.com/bbbbhrrrr/Commerce-Security-Governance-Over-privacy-alliance-CSGO-/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/shaojintian

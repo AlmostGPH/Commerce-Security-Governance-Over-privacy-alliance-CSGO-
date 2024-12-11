@@ -36,7 +36,7 @@ const ResultPreview = () => {
 
   const renderHtmlContent = (content: string | ArrayBuffer | null) => {
     if (!content) {
-      return <div>没有设置准确率图形HTML文件</div>;
+      return <div>没有设置准确率图像HTML文件</div>;
     }
 
     return <div dangerouslySetInnerHTML={{ __html: content as string }} />;
@@ -103,7 +103,7 @@ const ResultPreview = () => {
           padding: "0.5rem",
           marginBottom: "1rem",
           display: "flex",                    
-          width: "calc(100vw - 420px)", // 固定宽度
+          width: "calc(100vw - 455px)", // 固定宽度
         }}
       >
         {/* <label htmlFor="htmlFile">选择 HTML 文件:</label> */}
@@ -121,8 +121,8 @@ const ResultPreview = () => {
           display: "flex",
           flexDirection: "column",
           marginTop: "1rem",
-          height: "calc(100vh - 650px)", // 固定高度
-          width: "calc(100vw - 440px)", // 固定宽度
+          height: "calc(100vh - 670px)", // 固定高度
+          width: "calc(100vw - 470px)", // 固定宽度
           overflow: "auto", // 超出内容滚动
           paddingBottom: "1rem",
         }}
@@ -150,7 +150,7 @@ const ResultPreview = () => {
           marginBottom: "1rem",
           marginTop: "1rem",
           display: "flex",                    
-          width: "calc(100vw - 420px)", // 固定宽度
+          width: "calc(100vw - 455px)", // 固定宽度
         }}
       >
         {/* <label htmlFor="htmlFile">选择 HTML 文件:</label> */}
@@ -168,8 +168,8 @@ const ResultPreview = () => {
           display: "flex",
           flexDirection: "column",
           marginTop: "1rem",
-          height: "calc(100vh - 650px)", // 固定高度
-          width: "calc(100vw - 440px)", // 固定宽度
+          height: "calc(100vh - 670px)", // 固定高度
+          width: "calc(100vw - 470px)", // 固定宽度
           overflow: "auto", // 超出内容滚动
         }}
       >

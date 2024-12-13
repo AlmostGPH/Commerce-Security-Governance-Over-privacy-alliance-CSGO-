@@ -63,7 +63,11 @@ CSGO: 联邦隐私商业安全保障 （Commerce Security & Governance Over priv
   - [GUI引导](#GUI引导)
 
 
+---
 
+# 获奖情况
+
+本项目在山东大学×蚂蚁集团隐语SecretFlow举办的2024年数据要素流通创意大赛中获得一等奖（第一名）。
 
 
 ---

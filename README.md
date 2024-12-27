@@ -230,6 +230,8 @@ level_Total即为对应的label。
 
 运行 python main.py，根据交互式终端界面输入对应的信息即可，示例信息参考 cmd.txt
 
+点击查看[演示视频](https://www.bilibili.com/video/BV1cE4HesEph/)
+
 ## 生成数据集
 
 在`DataGen`文件夹中运行`Data_gen.py`即可生成数据，默认生成两方电子平台与支付平台的订单信息。
